@@ -16,7 +16,7 @@ class _LandingPageState extends State<LandingPage> {
   ScrollController _scrollController = new ScrollController();
   @override
   String _connectionStatus = 'Unknown';
-  bool connected;
+  bool connected=false;
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
   @override
@@ -96,42 +96,42 @@ class _LandingPageState extends State<LandingPage> {
               padding: EdgeInsets.all(20),
               child: connected
                   ? Image.network(
-                      'https://images.unsplash.com/photo-1562887245-9d941e87344e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80')
+                  'https://images.unsplash.com/photo-1562887245-9d941e87344e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80')
                   : Container(
-                      child: Center(
-                        child: Text(
-                          "Please Connect to Internet",
-                          style: TextStyle(color: Colors.redAccent),
-                        ),
-                      ),
-                    ),
+                child: Center(
+                  child: Text(
+                    "Please Connect to Internet",
+                    style: TextStyle(color: Colors.redAccent),
+                  ),
+                ),
+              ),
             ),
             Container(
               padding: EdgeInsets.all(20),
               child: connected
                   ? Image.network(
-                      'https://images.unsplash.com/photo-1570712884211-24c5bd3bf0b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
+                  'https://images.unsplash.com/photo-1570712884211-24c5bd3bf0b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
                   : null,
             ),
             Container(
               padding: EdgeInsets.all(20),
               child: connected
                   ? Image.network(
-                      'https://images.unsplash.com/photo-1569326513740-fd376db73ad5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
+                  'https://images.unsplash.com/photo-1569326513740-fd376db73ad5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
                   : null,
             ),
             Container(
               padding: EdgeInsets.all(20),
               child: connected
                   ? Image.network(
-                      'https://images.unsplash.com/photo-1568381908900-4d012e82082b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
+                  'https://images.unsplash.com/photo-1568381908900-4d012e82082b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
                   : null,
             ),
             Container(
               padding: EdgeInsets.all(20),
               child: connected
                   ? Image.network(
-                      'https://images.unsplash.com/photo-1556695725-1275cb8083c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
+                  'https://images.unsplash.com/photo-1556695725-1275cb8083c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
                   : null,
             ),
           ],
@@ -180,7 +180,7 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () => Navigator.pushNamed(context, "/camera")),
                     ListTile(
                         leading:
-                            Icon(Icons.equalizer, size: 20, color: Colors.pink),
+                        Icon(Icons.equalizer, size: 20, color: Colors.pink),
                         title: Text('Graphs'),
                         onTap: () => Navigator.pushNamed(context, "/graphs")),
                     ListTile(
@@ -190,7 +190,7 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () => Navigator.pushNamed(context, "/browser")),
                     ListTile(
                         leading:
-                            Icon(Icons.scanner, size: 20, color: Colors.orange),
+                        Icon(Icons.scanner, size: 20, color: Colors.orange),
                         title: Text('G-Pay'),
                         onTap: () {
                           Fluttertoast.showToast(
@@ -200,7 +200,7 @@ class _LandingPageState extends State<LandingPage> {
                         }),
                     ListTile(
                         leading:
-                            Icon(Icons.face, size: 20, color: Colors.black),
+                        Icon(Icons.face, size: 20, color: Colors.black),
                         title: Text('Gender'),
                         onTap: () => Navigator.pushNamed(context, "/gender")),
                     ListTile(
@@ -237,29 +237,29 @@ class _LandingPageState extends State<LandingPage> {
                             Navigator.pushNamed(context, "/localnotify")),
                     ListTile(
                         leading:
-                            Icon(Icons.gif, size: 40, color: Color(0XFF512da8)),
+                        Icon(Icons.gif, size: 40, color: Color(0XFF512da8)),
                         title: Text('Giffy Dialog'),
                         onTap: () {
                           showDialog(
                               context: context,
                               builder: (_) => NetworkGiffyDialog(
-                                    image: Image.network(
-                                        'https://raw.githubusercontent.com/appwise-labs/NoInternetDialog/master/Images/niam.gif'),
-                                    title: Text(
-                                      'Please Connect to Internet',
-                                      style: TextStyle(
-                                          fontSize: 22.0,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    description: Text(
-                                      'And Enjoy Your Day',
-                                      style: TextStyle(),
-                                    ),
-                                    entryAnimation: EntryAnimation.LEFT_RIGHT,
-                                    onOkButtonPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ));
+                                image: Image.network(
+                                    'https://raw.githubusercontent.com/appwise-labs/NoInternetDialog/master/Images/niam.gif'),
+                                title: Text(
+                                  'Please Connect to Internet',
+                                  style: TextStyle(
+                                      fontSize: 22.0,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                description: Text(
+                                  'And Enjoy Your Day',
+                                  style: TextStyle(),
+                                ),
+                                entryAnimation: EntryAnimation.LEFT_RIGHT,
+                                onOkButtonPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ));
                         }),
                     Card(
                       margin: EdgeInsets.only(bottom: 2.0),
@@ -286,7 +286,7 @@ class _LandingPageState extends State<LandingPage> {
                     ),
                     ListTile(
                         leading: Icon(Icons.date_range,
-                            size: 20,  color: Color(0XFF2e7d32),),
+                          size: 20,  color: Color(0XFF2e7d32),),
                         title: Text('Calendar'),
                         onTap: () =>
                             Navigator.pushNamed(context, "/calendar")),
@@ -296,6 +296,12 @@ class _LandingPageState extends State<LandingPage> {
                         title: Text('Animate Text'),
                         onTap: () =>
                             Navigator.pushNamed(context, "/text")),
+                    ListTile(
+                        leading: Icon(Icons.text_format,
+                          size: 20,  color: Color(0XFF9e7e42),),
+                        title: Text('Volume Control'),
+                        onTap: () =>
+                            Navigator.pushNamed(context, "/nativevolume")),
                     ListTile(
                       leading: Icon(Icons.exit_to_app, size: 20),
                       title: Text('Log Out'),
