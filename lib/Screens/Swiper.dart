@@ -26,7 +26,7 @@ class _SwiperSState extends State<SwiperS> {
       ),
 
       body: GestureDetector(
-        onTap:showToast ,
+        onDoubleTap:showToast ,
         child: Swiper(
           itemBuilder: (BuildContext context, int index) {
             return new Image.network(

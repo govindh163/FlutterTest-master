@@ -5,7 +5,7 @@ class AppModel with ChangeNotifier {
   String message;
   bool darkTheme = false;
 
-  void updateTheme(bool theme){
+    updateTheme(bool theme){
     darkTheme = theme;
     notifyListeners();
   }

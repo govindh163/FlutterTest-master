@@ -14,14 +14,18 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   ScrollController _scrollController = new ScrollController();
+  var time=TimeOfDay.now();
   @override
   String _connectionStatus = 'Unknown';
   bool connected=false;
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
+
+
   @override
   void initState() {
     super.initState();
+
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
@@ -31,6 +35,13 @@ class _LandingPageState extends State<LandingPage> {
   void dispose() {
     _connectivitySubscription.cancel();
     super.dispose();
+  }
+
+  SetTheme(){
+    if(time==TimeOfDay(hour:18,minute:12)){
+      print('ff');
+      Fluttertoast.showToast(msg:"your time is $time");
+    }
   }
 
   Future<void> initConnectivity() async {
@@ -83,7 +94,16 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(time);
+
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+         SetTheme();
+        },
+        child: Icon(Icons.navigation),
+        backgroundColor: Colors.green,
+      ),
       appBar: AppBar(
         title: Text("Click the Drawer"),
         backgroundColor: Colors.deepOrangeAccent,
@@ -255,7 +275,7 @@ class _LandingPageState extends State<LandingPage> {
                                   'And Enjoy Your Day',
                                   style: TextStyle(),
                                 ),
-                                entryAnimation: EntryAnimation.LEFT_RIGHT,
+                                entryAnimation: EntryAnimation.LEFT,
                                 onOkButtonPressed: () {
                                   Navigator.pop(context);
                                 },
@@ -297,7 +317,7 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () =>
                             Navigator.pushNamed(context, "/text")),
                     ListTile(
-                        leading: Icon(Icons.text_format,
+                        leading: Icon(Icons.volume_up,
                           size: 20,  color: Color(0XFF9e7e42),),
                         title: Text('Volume Control'),
                         onTap: () =>
