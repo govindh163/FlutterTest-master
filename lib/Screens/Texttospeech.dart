@@ -98,7 +98,7 @@ class _TTSPluginRecipeState extends State<TTSPluginRecipe> {
       body: Stack(
         children: <Widget>[
           Container(
-            height: 360,
+            height: 250,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(50.0),
