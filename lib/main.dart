@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Screens/Texttospeech.dart';
 import 'package:flutter_app/Screens/nativevolume.dart';
 import 'package:flutter_app/Screens/timepicker.dart';
 import 'package:provider/provider.dart';
@@ -72,6 +73,7 @@ class _MyAppState extends State<MyApp> {
               '/text': (BuildContext context) => TextAnimate(),
               '/urllaunch': (BuildContext context) => WebViewContainer(),
               '/nativevolume': (BuildContext context) => NativeVolume(),
+              '/texttospeech': (BuildContext context) => TTSPluginRecipe(),
             },
           );
         },),

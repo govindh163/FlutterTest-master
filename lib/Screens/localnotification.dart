@@ -80,10 +80,12 @@ class _LocalNotifyState extends State<LocalNotify> {
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.schedule(
         0,
-        'scheduled title',
-        'scheduled body',
+        'scheduled Notification',
+        'scheduled Notification Arrived',
         scheduledNotificationDateTime,
-        platformChannelSpecifics);
+        platformChannelSpecifics,
+      payload:"You achieved Great",);
+
   }
 
   showNotification() async {

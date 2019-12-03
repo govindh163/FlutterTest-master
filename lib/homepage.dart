@@ -318,10 +318,16 @@ class _LandingPageState extends State<LandingPage> {
                             Navigator.pushNamed(context, "/text")),
                     ListTile(
                         leading: Icon(Icons.volume_up,
-                          size: 20,  color: Color(0XFF9e7e42),),
+                          size: 20,  color: Color(0XFF53B032),),
                         title: Text('Volume Control'),
                         onTap: () =>
                             Navigator.pushNamed(context, "/nativevolume")),
+                    ListTile(
+                        leading: Icon(Icons.mic,
+                          size: 20,  color: Color(0XFF892741),),
+                        title: Text('Hey Flutter'),
+                        onTap: () =>
+                            Navigator.pushNamed(context, "/texttospeech")),
                     ListTile(
                       leading: Icon(Icons.exit_to_app, size: 20),
                       title: Text('Log Out'),
