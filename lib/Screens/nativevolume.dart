@@ -98,6 +98,16 @@ class _NativeVolumeState extends State<NativeVolume> {
                   },
                 )
                     : Container(),
+                Draggable(
+                  data: 'Flutter',
+                  child: FlutterLogo(
+                    size: 100.0,
+                  ),
+                  feedback: FlutterLogo(
+                    size: 100.0,
+                  ),
+                  childWhenDragging: Container(),
+                )
               ],
             ),
           ),

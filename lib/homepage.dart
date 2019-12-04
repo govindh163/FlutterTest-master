@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:flutter_app/Screens/Texttospeech.dart';
+import 'package:flutter_app/Screens/nativevolume.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -6,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:connectivity/connectivity.dart';
 import 'Model/appmodel.dart';
 import 'package:flutter/services.dart';
-
+import 'package:quick_actions/quick_actions.dart';
 class LandingPage extends StatefulWidget {
   @override
   _LandingPageState createState() => _LandingPageState();
@@ -14,6 +16,7 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   ScrollController _scrollController = new ScrollController();
+  String shortcut = "no action set";
   var time=TimeOfDay.now();
   @override
   String _connectionStatus = 'Unknown';
@@ -25,12 +28,44 @@ class _LandingPageState extends State<LandingPage> {
   @override
   void initState() {
     super.initState();
-
+    setUp();
+    controlAll();
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
-
+  void setUp(){
+    final QuickActions quickActions = QuickActions();
+    quickActions.initialize((String shortcutType) {
+      setState(() {
+        if (shortcutType != null) shortcut = shortcutType;
+      });
+      if (shortcutType == 'action_main') {
+        print('The user tapped on the "Main view" action.');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => TTSPluginRecipe()));
+      }
+      if (shortcutType == 'action_two') {
+        print('The user tapped on the "action  view" action.');
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => NativeVolume()));
+      }
+    });
+  }
+  void controlAll(){
+    final QuickActions quickActions = QuickActions();
+    quickActions.setShortcutItems(<ShortcutItem>[
+      const ShortcutItem(
+        type: 'action_main',
+        localizedTitle: 'Make to speak App',
+        icon: 'speak',
+      ),
+      const ShortcutItem(
+          type: 'action_two',
+          localizedTitle: 'Control Volume',
+          icon: 'sound'),
+    ]);
+  }
   @override
   void dispose() {
     _connectivitySubscription.cancel();
