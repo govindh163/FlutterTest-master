@@ -147,7 +147,11 @@ class _TTSPluginRecipeState extends State<TTSPluginRecipe> {
                 ),
                 TextField(
                     controller: _descriptioncontroller,
-                    onChanged: (value) => description = value,
+                    onChanged: (value) {
+                     setState(() {
+                       description = value;
+                     });
+                    },
                     decoration: const InputDecoration(
                       labelText: 'Type words to speak',
                     )),
