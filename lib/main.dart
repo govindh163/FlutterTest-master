@@ -8,6 +8,7 @@ import 'Screens/AccessContacts.dart';
 import 'Screens/Cameraacces.dart';
 import 'Screens/Contacts.dart';
 import 'Model/appmodel.dart';
+import 'Screens/Flipcard.dart';
 import 'Screens/GenderPredicter.dart';
 import 'Screens/InappBrowser.dart';
 import 'Screens/QrScanner.dart';
@@ -74,6 +75,7 @@ class _MyAppState extends State<MyApp> {
               '/urllaunch': (BuildContext context) => WebViewContainer(),
               '/nativevolume': (BuildContext context) => NativeVolume(),
               '/texttospeech': (BuildContext context) => TTSPluginRecipe(),
+              '/flipcard': (BuildContext context) => CardFlip(),
             },
           );
         },),

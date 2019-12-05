@@ -358,6 +358,12 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () =>
                             Navigator.pushNamed(context, "/nativevolume")),
                     ListTile(
+                        leading: Icon(Icons.credit_card,
+                          size: 20,  color: Color(0XFF23F11D),),
+                        title: Text('Card Flip'),
+                        onTap: () =>
+                            Navigator.pushNamed(context, "/flipcard")),
+                    ListTile(
                         leading: Icon(Icons.mic,
                           size: 20,  color: Color(0XFF892741),),
                         title: Text('Hey Flutter'),
