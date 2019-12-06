@@ -15,6 +15,7 @@ import 'Screens/QrScanner.dart';
 import 'Screens/Scratchcard.dart';
 import 'Screens/Swiper.dart';
 import 'Screens/Textanimation.dart';
+import 'Screens/Time.dart';
 import 'Screens/graphs.dart';
 import 'Screens/json.dart';
 import 'Screens/localnotification.dart';
@@ -76,6 +77,7 @@ class _MyAppState extends State<MyApp> {
               '/nativevolume': (BuildContext context) => NativeVolume(),
               '/texttospeech': (BuildContext context) => TTSPluginRecipe(),
               '/flipcard': (BuildContext context) => CardFlip(),
+              '/time': (BuildContext context) => FlutterTimeDemo(),
             },
           );
         },),

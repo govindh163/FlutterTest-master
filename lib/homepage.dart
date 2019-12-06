@@ -370,6 +370,12 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () =>
                             Navigator.pushNamed(context, "/texttospeech")),
                     ListTile(
+                        leading: Icon(Icons.access_alarms,
+                          size: 20,  color: Color(0XFF892741),),
+                        title: Text('Timer'),
+                        onTap: () =>
+                            Navigator.pushNamed(context, "/time")),
+                    ListTile(
                       leading: Icon(Icons.exit_to_app, size: 20),
                       title: Text('Log Out'),
                       onTap: () {},
