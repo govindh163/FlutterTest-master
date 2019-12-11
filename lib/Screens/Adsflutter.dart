@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 
-const String testDevice = 'DE8865B2B05D7139DD4BB0EBB86F51FE';
+const String testDevice = 'Your Test Device ID';
 
 class AdmobFlutter extends StatefulWidget {
   @override
