@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Screens/Search.dart';
 import 'package:flutter_app/Screens/Texttospeech.dart';
 import 'package:flutter_app/Screens/nativevolume.dart';
 import 'package:flutter_app/Screens/timepicker.dart';
@@ -80,6 +81,7 @@ class _MyAppState extends State<MyApp> {
               '/flipcard': (BuildContext context) => CardFlip(),
               '/time': (BuildContext context) => FlutterTimeDemo(),
               '/admob': (BuildContext context) => AdmobFlutter(),
+              '/country': (BuildContext context) => AllCountries(),
             },
           );
         },),

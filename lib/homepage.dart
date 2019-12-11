@@ -376,11 +376,17 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () =>
                             Navigator.pushNamed(context, "/time")),
                     ListTile(
-                        leading: Icon(Icons.access_alarms,
-                          size: 20,  color: Color(0XFF892741),),
-                        title: Text('Timer'),
+                        leading: Icon(Icons.accessibility,
+                          size: 20,  color: Color(0XFFF062F0),),
+                        title: Text('ADs FLutter'),
                         onTap: () =>
                             Navigator.pushNamed(context, "/admob")),
+                    ListTile(
+                        leading: Icon(Icons.search,
+                          size: 20,  color: Color(0XFF6262F0),),
+                        title: Text('Search'),
+                        onTap: () =>
+                            Navigator.pushNamed(context, "/country")),
                     ListTile(
                       leading: Icon(Icons.exit_to_app, size: 20),
                       title: Text('Log Out'),

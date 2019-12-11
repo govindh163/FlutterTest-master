@@ -60,7 +60,7 @@ class _AdmobFlutterState extends State<AdmobFlutter> {
   Widget build(BuildContext context) {
     return  Scaffold(
         appBar: AppBar(
-          title: Text("Demo App"),
+          title: Text("Flutter Ad"),
         ),
         body: Center(
             child: RaisedButton(
