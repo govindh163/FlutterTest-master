@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Screens/NotePage.dart';
 import 'package:flutter_app/Screens/Search.dart';
 import 'package:flutter_app/Screens/Texttospeech.dart';
+import 'package:flutter_app/Screens/Updatedb.dart';
 import 'package:flutter_app/Screens/nativevolume.dart';
 import 'package:flutter_app/Screens/timepicker.dart';
 import 'package:provider/provider.dart';
@@ -82,6 +84,8 @@ class _MyAppState extends State<MyApp> {
               '/time': (BuildContext context) => FlutterTimeDemo(),
               '/admob': (BuildContext context) => AdmobFlutter(),
               '/country': (BuildContext context) => AllCountries(),
+              '/dbsql': (BuildContext context) => DBTestPage(),
+              '/studentmgmr': (BuildContext context) => UpdatePage(),
             },
           );
         },),

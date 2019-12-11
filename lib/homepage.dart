@@ -388,6 +388,18 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () =>
                             Navigator.pushNamed(context, "/country")),
                     ListTile(
+                        leading: Icon(Icons.system_update_alt,
+                          size: 20,  color: Color(0XFF6262F0),),
+                        title: Text('Complex DB'),
+                        onTap: () =>
+                            Navigator.pushNamed(context, "/dbsql")),
+                    ListTile(
+                        leading: Icon(Icons.table_chart,
+                          size: 20,  color: Color(0XFF62FFFF),),
+                        title: Text('Simple DB'),
+                        onTap: () =>
+                            Navigator.pushNamed(context, "/studentmgmr")),
+                    ListTile(
                       leading: Icon(Icons.exit_to_app, size: 20),
                       title: Text('Log Out'),
                       onTap: () {},
