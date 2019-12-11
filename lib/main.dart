@@ -5,6 +5,7 @@ import 'package:flutter_app/Screens/timepicker.dart';
 import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'Screens/AccessContacts.dart';
+import 'Screens/Adsflutter.dart';
 import 'Screens/Cameraacces.dart';
 import 'Screens/Contacts.dart';
 import 'Model/appmodel.dart';
@@ -78,6 +79,7 @@ class _MyAppState extends State<MyApp> {
               '/texttospeech': (BuildContext context) => TTSPluginRecipe(),
               '/flipcard': (BuildContext context) => CardFlip(),
               '/time': (BuildContext context) => FlutterTimeDemo(),
+              '/admob': (BuildContext context) => AdmobFlutter(),
             },
           );
         },),
