@@ -9,7 +9,7 @@ class FlutterTimeDemo extends StatefulWidget{
 
 class _FlutterTimeDemoState extends State<FlutterTimeDemo>
 {
-  String _timeString="11.30";
+  String _timeString;
 
   @override
   void initState(){
@@ -35,8 +35,6 @@ class _FlutterTimeDemoState extends State<FlutterTimeDemo>
   }
 
   void _getCurrentTime()  {
-//    setState(() {
-//      _timeString = "${DateTime.now().hour} : ${DateTime.now().minute} :${DateTime.now().second}";
-//    });
+  setState(() {    _timeString = "${DateTime.now().hour} : ${DateTime.now().minute} :${DateTime.now().second}";  });
   }
 }
