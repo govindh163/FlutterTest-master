@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter/material.dart';
 
@@ -8,8 +9,10 @@ class Calendar extends StatefulWidget {
 
 class _CalendarState extends State<Calendar> {
   @override
-  var Date='';
-  var Time='';
+  var Date = '';
+  var Time = '';
+  bool isON =true;
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -39,12 +42,15 @@ class _CalendarState extends State<Calendar> {
                       onChanged: (date) {
                         print('change $date in time zone ' +
                             date.timeZoneOffset.inHours.toString());
-                      }, onConfirm: (date) {
+                      },
+                      onConfirm: (date) {
                         setState(() {
-                          Time='$date';
+                          Time = '$date';
                         });
                         print('confirm $date');
-                      }, currentTime: DateTime.now(), locale: LocaleType.en);
+                      },
+                      currentTime: DateTime.now(),
+                      locale: LocaleType.en);
                 },
                 child: Text(
                   'show date picker ',
@@ -65,7 +71,7 @@ class _CalendarState extends State<Calendar> {
                             date.timeZoneOffset.inHours.toString());
                       }, onConfirm: (date) {
                         setState(() {
-                          Date='$date';
+                          Date = '$date';
                         });
                         print('confirm $date');
                       }, currentTime: DateTime.now());
@@ -102,9 +108,30 @@ class _CalendarState extends State<Calendar> {
               padding: EdgeInsets.all(20),
               child: Text('Selected Date:$Date'),
             ),
+            GestureDetector(
+              onTap: (){
+                switchON();
+              },
+              child: Container(
+                height: 100,
+                child: FlareActor(
+                    "assets/butt.flr",
+                    alignment: Alignment.center,
+                    fit: BoxFit.fitWidth,
+                    animation: isON ? "On" : "Off"
+                ),
+              ),
+            ),
           ],
         ),
       ),
     );
+  }
+
+  switchON() {
+    debugPrint('hi');
+    setState(() {
+      isON = !isON;
+    });
   }
 }
