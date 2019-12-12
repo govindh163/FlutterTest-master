@@ -13,9 +13,9 @@ class _FlutterTimeDemoState extends State<FlutterTimeDemo>
 
   @override
   void initState(){
-//    _timeString = "${DateTime.now().hour} : ${DateTime.now().minute} :${DateTime.now().second}";
-//    Timer.periodic(Duration(seconds:1), (Timer t)=>_getCurrentTime());
-//    super.initState();
+    _timeString = "${DateTime.now().hour} : ${DateTime.now().minute} :${DateTime.now().second}";
+     Timer.periodic(Duration(seconds:1), (Timer t)=>_getCurrentTime());
+    super.initState();
   }
 
   @override
