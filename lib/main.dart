@@ -4,6 +4,7 @@ import 'package:flutter_app/Screens/Search.dart';
 import 'package:flutter_app/Screens/Texttospeech.dart';
 import 'package:flutter_app/Screens/Updatedb.dart';
 import 'package:flutter_app/Screens/nativevolume.dart';
+import 'package:flutter_app/Screens/ocrtext.dart';
 import 'package:flutter_app/Screens/timepicker.dart';
 import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -86,6 +87,7 @@ class _MyAppState extends State<MyApp> {
               '/country': (BuildContext context) => AllCountries(),
               '/dbsql': (BuildContext context) => DBTestPage(),
               '/studentmgmr': (BuildContext context) => UpdatePage(),
+              '/ocrtext': (BuildContext context) => BottomBar(),
             },
           );
         },),
