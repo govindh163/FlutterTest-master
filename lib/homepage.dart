@@ -406,6 +406,12 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () =>
                             Navigator.pushNamed(context, "/ocrtext")),
                     ListTile(
+                        leading: Icon(Icons.fiber_new,
+                          size: 20,  color: Colors.red[900],),
+                        title: Text('Inshorts'),
+                        onTap: () =>
+                            Navigator.pushNamed(context, "/news")),
+                    ListTile(
                       leading: Icon(Icons.exit_to_app, size: 20),
                       title: Text('Log Out'),
                       onTap: () {},

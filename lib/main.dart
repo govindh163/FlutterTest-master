@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Screens/InshortSwipe.dart';
 import 'package:flutter_app/Screens/NotePage.dart';
 import 'package:flutter_app/Screens/Search.dart';
 import 'package:flutter_app/Screens/Texttospeech.dart';
@@ -88,6 +89,7 @@ class _MyAppState extends State<MyApp> {
               '/dbsql': (BuildContext context) => DBTestPage(),
               '/studentmgmr': (BuildContext context) => UpdatePage(),
               '/ocrtext': (BuildContext context) => BottomBar(),
+              '/news': (BuildContext context) => NewsPage(),
             },
           );
         },),
