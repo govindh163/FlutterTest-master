@@ -4,6 +4,7 @@ import 'package:flutter_app/Screens/NotePage.dart';
 import 'package:flutter_app/Screens/Search.dart';
 import 'package:flutter_app/Screens/Texttospeech.dart';
 import 'package:flutter_app/Screens/Updatedb.dart';
+import 'package:flutter_app/Screens/VoiceRecord.dart';
 import 'package:flutter_app/Screens/nativevolume.dart';
 import 'package:flutter_app/Screens/ocrtext.dart';
 import 'package:flutter_app/Screens/timepicker.dart';
@@ -90,6 +91,7 @@ class _MyAppState extends State<MyApp> {
               '/studentmgmr': (BuildContext context) => UpdatePage(),
               '/ocrtext': (BuildContext context) => BottomBar(),
               '/news': (BuildContext context) => NewsPage(),
+              '/voice': (BuildContext context) => VoiceRecord(),
             },
           );
         },),

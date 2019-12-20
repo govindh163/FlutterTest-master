@@ -412,6 +412,12 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () =>
                             Navigator.pushNamed(context, "/news")),
                     ListTile(
+                        leading: Icon(Icons.speaker_phone,
+                          size: 20,  color: Colors.red[400],),
+                        title: Text('Tomcat'),
+                        onTap: () =>
+                            Navigator.pushNamed(context, "/voice")),
+                    ListTile(
                       leading: Icon(Icons.exit_to_app, size: 20),
                       title: Text('Log Out'),
                       onTap: () {},
