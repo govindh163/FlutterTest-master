@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:flutter_app/Model/SpinnerAnimation.dart';
 import 'package:flutter_app/Screens/Texttospeech.dart';
 import 'package:flutter_app/Screens/nativevolume.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,6 +11,7 @@ import 'package:connectivity/connectivity.dart';
 import 'Model/appmodel.dart';
 import 'package:flutter/services.dart';
 import 'package:quick_actions/quick_actions.dart';
+
 class LandingPage extends StatefulWidget {
   @override
   _LandingPageState createState() => _LandingPageState();
@@ -17,13 +20,12 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   ScrollController _scrollController = new ScrollController();
   String shortcut = "no action set";
-  var time=TimeOfDay.now();
+  var time = TimeOfDay.now();
   @override
   String _connectionStatus = 'Unknown';
-  bool connected=false;
+  bool connected = false;
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
-
 
   @override
   void initState() {
@@ -34,7 +36,8 @@ class _LandingPageState extends State<LandingPage> {
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
-  void setUp(){
+
+  void setUp() {
     final QuickActions quickActions = QuickActions();
     quickActions.initialize((String shortcutType) {
       setState(() {
@@ -42,8 +45,8 @@ class _LandingPageState extends State<LandingPage> {
       });
       if (shortcutType == 'action_main') {
         print('The user tapped on the "Main view" action.');
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => TTSPluginRecipe()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => TTSPluginRecipe()));
       }
       if (shortcutType == 'action_two') {
         print('The user tapped on the "action  view" action.');
@@ -52,7 +55,8 @@ class _LandingPageState extends State<LandingPage> {
       }
     });
   }
-  void controlAll(){
+
+  void controlAll() {
     final QuickActions quickActions = QuickActions();
     quickActions.setShortcutItems(<ShortcutItem>[
       const ShortcutItem(
@@ -61,21 +65,20 @@ class _LandingPageState extends State<LandingPage> {
         icon: 'speak',
       ),
       const ShortcutItem(
-          type: 'action_two',
-          localizedTitle: 'Control Volume',
-          icon: 'sound'),
+          type: 'action_two', localizedTitle: 'Control Volume', icon: 'sound'),
     ]);
   }
+
   @override
   void dispose() {
     _connectivitySubscription.cancel();
     super.dispose();
   }
 
-  SetTheme(){
-    if(time==TimeOfDay(hour:18,minute:12)){
+  SetTheme() {
+    if (time == TimeOfDay(hour: 18, minute: 12)) {
       print('ff');
-      Fluttertoast.showToast(msg:"your time is $time");
+      Fluttertoast.showToast(msg: "your time is $time");
     }
   }
 
@@ -126,6 +129,37 @@ class _LandingPageState extends State<LandingPage> {
         break;
     }
   }
+  void showToast() {
+    Fluttertoast.showToast(
+      msg: "Just A Tiktok spinner 🎵🎶🎵🎵",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIos: 1,
+      backgroundColor: Colors.blueGrey,
+      textColor: Colors.white,
+    );
+  }
+  Widget audioSpinner() {
+    return Container(
+        width: 50.0,
+        height: 50.0,
+        decoration: BoxDecoration(
+            gradient: audioDiscGradient,
+            shape: BoxShape.circle,
+            image: DecorationImage(image: AssetImage("assets/avatar.png"))));
+  }
+
+  LinearGradient get audioDiscGradient => LinearGradient(colors: [
+        Colors.grey[800],
+        Colors.grey[900],
+        Colors.grey[900],
+        Colors.grey[800]
+      ], stops: [
+        0.0,
+        0.4,
+        0.6,
+        1.0
+      ], begin: Alignment.bottomLeft, end: Alignment.topRight);
 
   @override
   Widget build(BuildContext context) {
@@ -134,7 +168,7 @@ class _LandingPageState extends State<LandingPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-         SetTheme();
+          SetTheme();
         },
         child: Icon(Icons.navigation),
         backgroundColor: Colors.green,
@@ -143,6 +177,11 @@ class _LandingPageState extends State<LandingPage> {
         title: Text("Click the Drawer"),
         backgroundColor: Colors.deepOrangeAccent,
         elevation: 50.0,
+        actions: <Widget>[
+          GestureDetector(
+              onTap: showToast,
+              child: SpinnerAnimation(body: audioSpinner()))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -151,42 +190,42 @@ class _LandingPageState extends State<LandingPage> {
               padding: EdgeInsets.all(20),
               child: connected
                   ? Image.network(
-                  'https://images.unsplash.com/photo-1562887245-9d941e87344e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80')
+                      'https://images.unsplash.com/photo-1562887245-9d941e87344e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80')
                   : Container(
-                child: Center(
-                  child: Text(
-                    "Please Connect to Internet",
-                    style: TextStyle(color: Colors.redAccent),
-                  ),
-                ),
-              ),
+                      child: Center(
+                        child: Text(
+                          "Please Connect to Internet",
+                          style: TextStyle(color: Colors.redAccent),
+                        ),
+                      ),
+                    ),
             ),
             Container(
               padding: EdgeInsets.all(20),
               child: connected
                   ? Image.network(
-                  'https://images.unsplash.com/photo-1570712884211-24c5bd3bf0b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
+                      'https://images.unsplash.com/photo-1570712884211-24c5bd3bf0b0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
                   : null,
             ),
             Container(
               padding: EdgeInsets.all(20),
               child: connected
                   ? Image.network(
-                  'https://images.unsplash.com/photo-1569326513740-fd376db73ad5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
+                      'https://images.unsplash.com/photo-1569326513740-fd376db73ad5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
                   : null,
             ),
             Container(
               padding: EdgeInsets.all(20),
               child: connected
                   ? Image.network(
-                  'https://images.unsplash.com/photo-1568381908900-4d012e82082b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
+                      'https://images.unsplash.com/photo-1568381908900-4d012e82082b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
                   : null,
             ),
             Container(
               padding: EdgeInsets.all(20),
               child: connected
                   ? Image.network(
-                  'https://images.unsplash.com/photo-1556695725-1275cb8083c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
+                      'https://images.unsplash.com/photo-1556695725-1275cb8083c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
                   : null,
             ),
           ],
@@ -235,7 +274,7 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () => Navigator.pushNamed(context, "/camera")),
                     ListTile(
                         leading:
-                        Icon(Icons.equalizer, size: 20, color: Colors.pink),
+                            Icon(Icons.equalizer, size: 20, color: Colors.pink),
                         title: Text('Graphs'),
                         onTap: () => Navigator.pushNamed(context, "/graphs")),
                     ListTile(
@@ -245,7 +284,7 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () => Navigator.pushNamed(context, "/browser")),
                     ListTile(
                         leading:
-                        Icon(Icons.scanner, size: 20, color: Colors.orange),
+                            Icon(Icons.scanner, size: 20, color: Colors.orange),
                         title: Text('G-Pay'),
                         onTap: () {
                           Fluttertoast.showToast(
@@ -255,7 +294,7 @@ class _LandingPageState extends State<LandingPage> {
                         }),
                     ListTile(
                         leading:
-                        Icon(Icons.face, size: 20, color: Colors.black),
+                            Icon(Icons.face, size: 20, color: Colors.black),
                         title: Text('Gender'),
                         onTap: () => Navigator.pushNamed(context, "/gender")),
                     ListTile(
@@ -292,29 +331,29 @@ class _LandingPageState extends State<LandingPage> {
                             Navigator.pushNamed(context, "/localnotify")),
                     ListTile(
                         leading:
-                        Icon(Icons.gif, size: 40, color: Color(0XFF512da8)),
+                            Icon(Icons.gif, size: 40, color: Color(0XFF512da8)),
                         title: Text('Giffy Dialog'),
                         onTap: () {
                           showDialog(
                               context: context,
                               builder: (_) => NetworkGiffyDialog(
-                                image: Image.network(
-                                    'https://raw.githubusercontent.com/appwise-labs/NoInternetDialog/master/Images/niam.gif'),
-                                title: Text(
-                                  'Please Connect to Internet',
-                                  style: TextStyle(
-                                      fontSize: 22.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                description: Text(
-                                  'And Enjoy Your Day',
-                                  style: TextStyle(),
-                                ),
-                                entryAnimation: EntryAnimation.LEFT,
-                                onOkButtonPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ));
+                                    image: Image.network(
+                                        'https://raw.githubusercontent.com/appwise-labs/NoInternetDialog/master/Images/niam.gif'),
+                                    title: Text(
+                                      'Please Connect to Internet',
+                                      style: TextStyle(
+                                          fontSize: 22.0,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    description: Text(
+                                      'And Enjoy Your Day',
+                                      style: TextStyle(),
+                                    ),
+                                    entryAnimation: EntryAnimation.LEFT,
+                                    onOkButtonPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ));
                         }),
                     Card(
                       margin: EdgeInsets.only(bottom: 2.0),
@@ -340,83 +379,120 @@ class _LandingPageState extends State<LandingPage> {
                       ),
                     ),
                     ListTile(
-                        leading: Icon(Icons.date_range,
-                          size: 20,  color: Color(0XFF2e7d32),),
+                        leading: Icon(
+                          Icons.date_range,
+                          size: 20,
+                          color: Color(0XFF2e7d32),
+                        ),
                         title: Text('Calendar'),
-                        onTap: () =>
-                            Navigator.pushNamed(context, "/calendar")),
+                        onTap: () => Navigator.pushNamed(context, "/calendar")),
                     ListTile(
-                        leading: Icon(Icons.text_format,
-                          size: 20,  color: Color(0XFF9e7e42),),
+                        leading: Icon(
+                          Icons.text_format,
+                          size: 20,
+                          color: Color(0XFF9e7e42),
+                        ),
                         title: Text('Animate Text'),
-                        onTap: () =>
-                            Navigator.pushNamed(context, "/text")),
+                        onTap: () => Navigator.pushNamed(context, "/text")),
                     ListTile(
-                        leading: Icon(Icons.volume_up,
-                          size: 20,  color: Color(0XFF53B032),),
+                        leading: Icon(
+                          Icons.volume_up,
+                          size: 20,
+                          color: Color(0XFF53B032),
+                        ),
                         title: Text('Volume Control'),
                         onTap: () =>
                             Navigator.pushNamed(context, "/nativevolume")),
                     ListTile(
-                        leading: Icon(Icons.credit_card,
-                          size: 20,  color: Color(0XFF23F11D),),
+                        leading: Icon(
+                          Icons.credit_card,
+                          size: 20,
+                          color: Color(0XFF23F11D),
+                        ),
                         title: Text('Card Flip'),
-                        onTap: () =>
-                            Navigator.pushNamed(context, "/flipcard")),
+                        onTap: () => Navigator.pushNamed(context, "/flipcard")),
                     ListTile(
-                        leading: Icon(Icons.mic,
-                          size: 20,  color: Color(0XFF892741),),
+                        leading: Icon(
+                          Icons.mic,
+                          size: 20,
+                          color: Color(0XFF892741),
+                        ),
                         title: Text('Hey Flutter'),
                         onTap: () =>
                             Navigator.pushNamed(context, "/texttospeech")),
                     ListTile(
-                        leading: Icon(Icons.access_alarms,
-                          size: 20,  color: Color(0XFF892741),),
+                        leading: Icon(
+                          Icons.access_alarms,
+                          size: 20,
+                          color: Color(0XFF892741),
+                        ),
                         title: Text('Timer'),
-                        onTap: () =>
-                            Navigator.pushNamed(context, "/time")),
+                        onTap: () => Navigator.pushNamed(context, "/time")),
                     ListTile(
-                        leading: Icon(Icons.accessibility,
-                          size: 20,  color: Color(0XFFF062F0),),
+                        leading: Icon(
+                          Icons.accessibility,
+                          size: 20,
+                          color: Color(0XFFF062F0),
+                        ),
                         title: Text('ADs FLutter'),
-                        onTap: () =>
-                            Navigator.pushNamed(context, "/admob")),
+                        onTap: () => Navigator.pushNamed(context, "/admob")),
                     ListTile(
-                        leading: Icon(Icons.search,
-                          size: 20,  color: Color(0XFF6262F0),),
+                        leading: Icon(
+                          Icons.search,
+                          size: 20,
+                          color: Color(0XFF6262F0),
+                        ),
                         title: Text('Search'),
-                        onTap: () =>
-                            Navigator.pushNamed(context, "/country")),
+                        onTap: () => Navigator.pushNamed(context, "/country")),
                     ListTile(
-                        leading: Icon(Icons.system_update_alt,
-                          size: 20,  color: Color(0XFF6262F0),),
+                        leading: Icon(
+                          Icons.system_update_alt,
+                          size: 20,
+                          color: Color(0XFF6262F0),
+                        ),
                         title: Text('Complex DB'),
-                        onTap: () =>
-                            Navigator.pushNamed(context, "/dbsql")),
+                        onTap: () => Navigator.pushNamed(context, "/dbsql")),
                     ListTile(
-                        leading: Icon(Icons.table_chart,
-                          size: 20,  color: Color(0XFF62FFFF),),
+                        leading: Icon(
+                          Icons.table_chart,
+                          size: 20,
+                          color: Color(0XFF62FFFF),
+                        ),
                         title: Text('Simple DB'),
                         onTap: () =>
                             Navigator.pushNamed(context, "/studentmgmr")),
                     ListTile(
-                        leading: Icon(Icons.show_chart,
-                          size: 20,  color: Colors.redAccent,),
+                        leading: Icon(
+                          Icons.show_chart,
+                          size: 20,
+                          color: Colors.redAccent,
+                        ),
                         title: Text('Draw Anything'),
-                        onTap: () =>
-                            Navigator.pushNamed(context, "/ocrtext")),
+                        onTap: () => Navigator.pushNamed(context, "/ocrtext")),
                     ListTile(
-                        leading: Icon(Icons.fiber_new,
-                          size: 20,  color: Colors.red[900],),
+                        leading: Icon(
+                          Icons.fiber_new,
+                          size: 20,
+                          color: Colors.red[900],
+                        ),
                         title: Text('Inshorts'),
-                        onTap: () =>
-                            Navigator.pushNamed(context, "/news")),
+                        onTap: () => Navigator.pushNamed(context, "/news")),
                     ListTile(
-                        leading: Icon(Icons.speaker_phone,
-                          size: 20,  color: Colors.red[400],),
+                        leading: Icon(
+                          Icons.speaker_phone,
+                          size: 20,
+                          color: Colors.red[400],
+                        ),
                         title: Text('Tomcat'),
-                        onTap: () =>
-                            Navigator.pushNamed(context, "/voice")),
+                        onTap: () => Navigator.pushNamed(context, "/voice")),
+                    ListTile(
+                        leading: Icon(
+                          FontAwesomeIcons.tree,
+                          size: 20,
+                          color: Colors.green[800],
+                        ),
+                        title: Text('Merry Christmas'),
+                        onTap: () => Navigator.pushNamed(context, "/tree")),
                     ListTile(
                       leading: Icon(Icons.exit_to_app, size: 20),
                       title: Text('Log Out'),

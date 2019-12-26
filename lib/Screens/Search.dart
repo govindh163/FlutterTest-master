@@ -8,6 +8,7 @@ class AllCountries extends StatefulWidget {
 
 class _AllCountriesState extends State<AllCountries> {
   List countries = [];
+  final ScrollController controller = ScrollController();
   List filteredCountries = [];
   bool isSearching = false;
 
@@ -26,6 +27,13 @@ class _AllCountriesState extends State<AllCountries> {
     super.initState();
   }
 
+  void _onTap( ) {
+    controller.animateTo(
+      5,
+      duration: Duration(milliseconds: 1),
+      curve: Curves.easeInCirc,
+    );
+  }
   void _filterCountries(value) {
     setState(() {
       filteredCountries = countries
@@ -75,10 +83,18 @@ class _AllCountriesState extends State<AllCountries> {
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed:() {
+          _onTap();
+        },
+        child: Icon(Icons.arrow_upward),
+        backgroundColor: Colors.redAccent,
+      ),
       body: Container(
         padding: EdgeInsets.all(10),
         child: filteredCountries.length > 0
             ? ListView.builder(
+          controller: controller,
             itemCount: filteredCountries.length,
             itemBuilder: (BuildContext context, int index) {
               return GestureDetector(

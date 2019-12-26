@@ -61,6 +61,8 @@ dependencies:
   chewie: ^0.9.7
   permission: ^0.1.5
   flutter_sound: ^1.7.0
+  audioplayers: ^0.13.5
+  font_awesome_flutter: ^8.5.0
 
 
 
@@ -87,7 +89,8 @@ flutter:
 
   assets:
     - butt.flr
-
+    - avatar.png
+    - jingle.mp3
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
