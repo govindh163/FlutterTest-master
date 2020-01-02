@@ -6,6 +6,7 @@ import 'package:flutter_app/Screens/Texttospeech.dart';
 import 'package:flutter_app/Screens/Updatedb.dart';
 import 'package:flutter_app/Screens/VoiceRecord.dart';
 import 'package:flutter_app/Screens/christmas.dart';
+import 'package:flutter_app/Screens/dictionary.dart';
 import 'package:flutter_app/Screens/nativevolume.dart';
 import 'package:flutter_app/Screens/ocrtext.dart';
 import 'package:flutter_app/Screens/timepicker.dart';
@@ -94,6 +95,7 @@ class _MyAppState extends State<MyApp> {
               '/news': (BuildContext context) => NewsPage(),
               '/voice': (BuildContext context) => VoiceRecord(),
               '/tree': (BuildContext context) => MyTree(),
+              '/word': (BuildContext context) => Dictionary(),
             },
           );
         },),

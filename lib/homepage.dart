@@ -494,6 +494,14 @@ class _LandingPageState extends State<LandingPage> {
                         title: Text('Merry Christmas'),
                         onTap: () => Navigator.pushNamed(context, "/tree")),
                     ListTile(
+                        leading: Icon(
+                          FontAwesomeIcons.wordpress,
+                          size: 20,
+                          color: Colors.yellowAccent[800],
+                        ),
+                        title: Text('Get Synonymn'),
+                        onTap: () => Navigator.pushNamed(context, "/word")),
+                    ListTile(
                       leading: Icon(Icons.exit_to_app, size: 20),
                       title: Text('Log Out'),
                       onTap: () {},
