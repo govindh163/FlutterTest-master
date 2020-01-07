@@ -1,16 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppModel with ChangeNotifier {
   bool isLoading = true;
   String message;
   bool darkTheme = false;
+  AppModel() {
+    getConfig();
+  }
+  Future<bool> getConfig() async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      darkTheme = prefs.getBool("darkTheme") ?? false;
+      debugPrint(darkTheme.toString());
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
 
-    updateTheme(bool theme){
-    darkTheme = theme;
-    notifyListeners();
+  void updateTheme(bool theme) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      darkTheme = theme;
+      await prefs.setBool("darkTheme", theme);
+      darkTheme = prefs.getBool("darkTheme") ?? false;
+      notifyListeners();
+    } catch (e) {}
   }
 }
-
+//  updateTheme(bool theme){
+//    darkTheme = theme;
+//    notifyListeners();
+//  }
+//}
 /// basic colors
 const kTeal50 = Color(0xFFE0F2F1);
 const kTeal100 = Color(0xFF3FC1BE);

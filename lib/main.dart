@@ -35,7 +35,7 @@ import 'Screens/network.dart';
 
 void main() async {
 //  httpLog.enabled = true;
-
+  WidgetsFlutterBinding.ensureInitialized();
   Provider.debugCheckInvalidValueType = null;
   runApp(MyApp());
 }
