@@ -64,7 +64,7 @@ class AppBody extends StatelessWidget {
           child: Text(
             "Get A ScratchCard",
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.red,
               fontWeight: FontWeight.bold,
               fontSize: 25,
             ),

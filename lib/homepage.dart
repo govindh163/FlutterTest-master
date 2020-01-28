@@ -502,6 +502,22 @@ class _LandingPageState extends State<LandingPage> {
                         title: Text('Get Synonymn'),
                         onTap: () => Navigator.pushNamed(context, "/word")),
                     ListTile(
+                        leading: Icon(
+                          FontAwesomeIcons.peopleCarry,
+                          size: 20,
+                          color: Colors.yellowAccent[800],
+                        ),
+                        title: Text('Signup'),
+                        onTap: () => Navigator.pushNamed(context, "/Signup")),
+                    ListTile(
+                        leading: Icon(
+                          FontAwesomeIcons.stopwatch,
+                          size: 20,
+                          color: Colors.yellowAccent[800],
+                        ),
+                        title: Text('Stop Watch'),
+                        onTap: () => Navigator.pushNamed(context, "/fasting")),
+                    ListTile(
                       leading: Icon(Icons.exit_to_app, size: 20),
                       title: Text('Log Out'),
                       onTap: () {},
