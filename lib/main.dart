@@ -5,8 +5,11 @@ import 'package:flutter_app/Screens/Search.dart';
 import 'package:flutter_app/Screens/Texttospeech.dart';
 import 'package:flutter_app/Screens/Updatedb.dart';
 import 'package:flutter_app/Screens/VoiceRecord.dart';
+import 'package:flutter_app/Screens/calendardate.dart';
 import 'package:flutter_app/Screens/christmas.dart';
+import 'package:flutter_app/Screens/custompaitsignup.dart';
 import 'package:flutter_app/Screens/dictionary.dart';
+import 'package:flutter_app/Screens/fasting.dart';
 import 'package:flutter_app/Screens/nativevolume.dart';
 import 'package:flutter_app/Screens/ocrtext.dart';
 import 'package:flutter_app/Screens/timepicker.dart';
@@ -32,12 +35,13 @@ import 'Screens/urllauncher.dart';
 import 'homepage.dart';
 import 'Screens/localauth.dart';
 import 'Screens/network.dart';
-
+import 'package:intl/date_symbol_data_local.dart';
 void main() async {
 //  httpLog.enabled = true;
+
   WidgetsFlutterBinding.ensureInitialized();
   Provider.debugCheckInvalidValueType = null;
-  runApp(MyApp());
+  initializeDateFormatting().then((_) =>runApp(MyApp()));
 }
 
 
@@ -94,8 +98,11 @@ class _MyAppState extends State<MyApp> {
               '/ocrtext': (BuildContext context) => BottomBar(),
               '/news': (BuildContext context) => NewsPage(),
               '/voice': (BuildContext context) => VoiceRecord(),
+              '/calendar': (BuildContext context) => CalendarPage(),
+              '/Signup': (BuildContext context) => Signup(),
               '/tree': (BuildContext context) => MyTree(),
               '/word': (BuildContext context) => Dictionary(),
+              '/fasting': (BuildContext context) => GoFast(),
             },
           );
         },),

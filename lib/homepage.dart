@@ -518,6 +518,14 @@ class _LandingPageState extends State<LandingPage> {
                         title: Text('Stop Watch'),
                         onTap: () => Navigator.pushNamed(context, "/fasting")),
                     ListTile(
+                        leading: Icon(
+                          FontAwesomeIcons.calendarDay,
+                          size: 20,
+                          color: Colors.yellowAccent[800],
+                        ),
+                        title: Text('Calendar'),
+                        onTap: () => Navigator.pushNamed(context, "/calendar")),
+                    ListTile(
                       leading: Icon(Icons.exit_to_app, size: 20),
                       title: Text('Log Out'),
                       onTap: () {},

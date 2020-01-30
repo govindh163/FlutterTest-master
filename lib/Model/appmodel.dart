@@ -8,6 +8,7 @@ class AppModel with ChangeNotifier {
   AppModel() {
     getConfig();
   }
+
   Future<bool> getConfig() async {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
