@@ -28,6 +28,7 @@ import 'Screens/Scratchcard.dart';
 import 'Screens/Swiper.dart';
 import 'Screens/Textanimation.dart';
 import 'Screens/Time.dart';
+import 'Screens/downloadimage.dart';
 import 'Screens/graphs.dart';
 import 'Screens/json.dart';
 import 'Screens/localnotification.dart';
@@ -84,6 +85,7 @@ class _MyAppState extends State<MyApp> {
               '/networkcheck': (BuildContext context) => NetworkCheck(),
               '/swiper': (BuildContext context) => SwiperS(),
               '/localnotify': (BuildContext context) => LocalNotify(),
+              '/download': (BuildContext context) => DownloadImage(),
               '/calendar': (BuildContext context) => Calendar(),
               '/text': (BuildContext context) => TextAnimate(),
               '/urllaunch': (BuildContext context) => WebViewContainer(),

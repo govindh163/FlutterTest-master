@@ -212,7 +212,7 @@ class _LandingPageState extends State<LandingPage> {
               child: connected
                   ? Image.network(
                       'https://images.unsplash.com/photo-1569326513740-fd376db73ad5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60')
-                  : null,
+                  : CircularProgressIndicator(),
             ),
             Container(
               padding: EdgeInsets.all(20),
@@ -487,6 +487,14 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () => Navigator.pushNamed(context, "/voice")),
                     ListTile(
                         leading: Icon(
+                          Icons.file_download,
+                          size: 20,
+                          color: Colors.purpleAccent[400],
+                        ),
+                        title: Text('Download'),
+                        onTap: () => Navigator.pushNamed(context, "/download")),
+                    ListTile(
+                        leading: Icon(
                           FontAwesomeIcons.tree,
                           size: 20,
                           color: Colors.green[800],
@@ -521,7 +529,7 @@ class _LandingPageState extends State<LandingPage> {
                         leading: Icon(
                           FontAwesomeIcons.calendarDay,
                           size: 20,
-                          color: Colors.yellowAccent[800],
+                          color: Colors.redAccent[800],
                         ),
                         title: Text('Calendar'),
                         onTap: () => Navigator.pushNamed(context, "/calendar")),
