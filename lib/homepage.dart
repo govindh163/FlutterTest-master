@@ -283,6 +283,11 @@ class _LandingPageState extends State<LandingPage> {
                         title: Text('In-App Browser'),
                         onTap: () => Navigator.pushNamed(context, "/browser")),
                     ListTile(
+                        leading: Icon(FontAwesomeIcons.robot,
+                            size: 20, color: Colors.blueGrey),
+                        title: Text('AI Mode'),
+                        onTap: () => Navigator.pushNamed(context, "/tflite")),
+                    ListTile(
                         leading:
                             Icon(Icons.scanner, size: 20, color: Colors.orange),
                         title: Text('G-Pay'),

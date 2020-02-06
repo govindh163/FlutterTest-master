@@ -32,6 +32,7 @@ import 'Screens/downloadimage.dart';
 import 'Screens/graphs.dart';
 import 'Screens/json.dart';
 import 'Screens/localnotification.dart';
+import 'Screens/tensorFlowmodel.dart';
 import 'Screens/urllauncher.dart';
 import 'homepage.dart';
 import 'Screens/localauth.dart';
@@ -86,6 +87,7 @@ class _MyAppState extends State<MyApp> {
               '/swiper': (BuildContext context) => SwiperS(),
               '/localnotify': (BuildContext context) => LocalNotify(),
               '/download': (BuildContext context) => DownloadImage(),
+              '/tflite': (BuildContext context) => TfModel(),
               '/calendar': (BuildContext context) => Calendar(),
               '/text': (BuildContext context) => TextAnimate(),
               '/urllaunch': (BuildContext context) => WebViewContainer(),

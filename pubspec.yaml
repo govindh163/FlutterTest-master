@@ -46,6 +46,7 @@ dependencies:
   animated_text_kit: ^1.3.1
   swipedetector: ^1.2.0
   flutter_tts: ^0.7.0
+  tflite: ^1.0.4
   table_calendar: ^2.2.2
   flip_card: ^0.4.4
   quick_actions: ^0.4.0
@@ -93,6 +94,8 @@ flutter:
     - butt.flr
     - avatar.png
     - jingle.mp3
+    - labels.txt
+    - model_unquant.tflite
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
