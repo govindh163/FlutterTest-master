@@ -335,6 +335,12 @@ class _LandingPageState extends State<LandingPage> {
                         onTap: () =>
                             Navigator.pushNamed(context, "/localnotify")),
                     ListTile(
+                        leading: Icon(Icons.menu,
+                            size: 20, color: Colors.redAccent),
+                        title: Text('Animated Drawer'),
+                        onTap: () =>
+                            Navigator.pushNamed(context, "/home")),
+                    ListTile(
                         leading:
                             Icon(Icons.gif, size: 40, color: Color(0XFF512da8)),
                         title: Text('Giffy Dialog'),

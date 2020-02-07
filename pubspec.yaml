@@ -65,6 +65,7 @@ dependencies:
   flutter_sound: ^1.7.0
   audioplayers: ^0.13.5
   font_awesome_flutter: ^8.5.0
+  smart_flare: ^0.2.8
 
 
 
@@ -96,6 +97,7 @@ flutter:
     - jingle.mp3
     - labels.txt
     - model_unquant.tflite
+    - slideout-menu.flr
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

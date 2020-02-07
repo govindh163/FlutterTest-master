@@ -35,7 +35,7 @@ class _SwiperSState extends State<SwiperS> {
             );
           },
           itemCount: 3,
-          scrollDirection: Axis.vertical,
+          scrollDirection: Axis.horizontal,
           pagination: new SwiperPagination(),
           control: new SwiperControl(),
         ),

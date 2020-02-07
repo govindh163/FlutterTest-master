@@ -32,6 +32,7 @@ import 'Screens/downloadimage.dart';
 import 'Screens/graphs.dart';
 import 'Screens/json.dart';
 import 'Screens/localnotification.dart';
+import 'Screens/smartflare.dart';
 import 'Screens/tensorFlowmodel.dart';
 import 'Screens/urllauncher.dart';
 import 'homepage.dart';
@@ -88,6 +89,7 @@ class _MyAppState extends State<MyApp> {
               '/localnotify': (BuildContext context) => LocalNotify(),
               '/download': (BuildContext context) => DownloadImage(),
               '/tflite': (BuildContext context) => TfModel(),
+              '/home': (BuildContext context) => Home(),
               '/calendar': (BuildContext context) => Calendar(),
               '/text': (BuildContext context) => TextAnimate(),
               '/urllaunch': (BuildContext context) => WebViewContainer(),
