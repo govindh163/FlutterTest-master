@@ -329,6 +329,11 @@ class _LandingPageState extends State<LandingPage> {
                         title: Text('Swiper'),
                         onTap: () => Navigator.pushNamed(context, "/swiper")),
                     ListTile(
+                        leading: Icon(Icons.android,
+                            size: 20, color: Colors.green),
+                        title: Text('Animate'),
+                        onTap: () => Navigator.pushNamed(context, "/animate")),
+                    ListTile(
                         leading: Icon(Icons.notifications_active,
                             size: 20, color: Color(0XFF00bcd4)),
                         title: Text('Get Notification'),

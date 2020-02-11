@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Screens/Animatepage.dart';
 import 'package:flutter_app/Screens/InshortSwipe.dart';
 import 'package:flutter_app/Screens/NotePage.dart';
 import 'package:flutter_app/Screens/Search.dart';
@@ -91,6 +92,7 @@ class _MyAppState extends State<MyApp> {
               '/tflite': (BuildContext context) => TfModel(),
               '/home': (BuildContext context) => Home(),
               '/calendar': (BuildContext context) => Calendar(),
+              '/animate': (BuildContext context) => AnimatePage(),
               '/text': (BuildContext context) => TextAnimate(),
               '/urllaunch': (BuildContext context) => WebViewContainer(),
               '/nativevolume': (BuildContext context) => NativeVolume(),
