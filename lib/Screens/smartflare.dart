@@ -20,12 +20,12 @@ class Home extends StatelessWidget {
             direction: ActorAdvancingDirection.LeftToRight,
             threshold: 20.0,
             reverseOnRelease:
-            true, // reverse's current animation when released and threshold not reaced
+            false, // reverse's current animation when released and threshold not reaced
             completeOnThresholdReached:
             false, // plays the animation till the end when we reach threshold
             activeAreas: [
               RelativePanArea(
-                  area: Rect.fromLTWH(0, 0.7, 1.0, 0.3), debugArea: true)
+                  area: Rect.fromLTWH(0, 0.7, 1.0, 0.3), debugArea: false)
             ],
           ),
         ),

@@ -4,6 +4,7 @@ import 'package:flutter_app/Screens/InshortSwipe.dart';
 import 'package:flutter_app/Screens/NotePage.dart';
 import 'package:flutter_app/Screens/Search.dart';
 import 'package:flutter_app/Screens/Texttospeech.dart';
+import 'package:flutter_app/Screens/Tipcalc.dart';
 import 'package:flutter_app/Screens/Updatedb.dart';
 import 'package:flutter_app/Screens/VoiceRecord.dart';
 import 'package:flutter_app/Screens/calendardate.dart';
@@ -89,9 +90,10 @@ class _MyAppState extends State<MyApp> {
               '/swiper': (BuildContext context) => SwiperS(),
               '/localnotify': (BuildContext context) => LocalNotify(),
               '/download': (BuildContext context) => DownloadImage(),
+              '/tips': (BuildContext context) => CalculateTips(),
               '/tflite': (BuildContext context) => TfModel(),
               '/home': (BuildContext context) => Home(),
-              '/calendar': (BuildContext context) => Calendar(),
+              '/calendarbut': (BuildContext context) => CalendarBut(),
               '/animate': (BuildContext context) => AnimatePage(),
               '/text': (BuildContext context) => TextAnimate(),
               '/urllaunch': (BuildContext context) => WebViewContainer(),

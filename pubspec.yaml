@@ -97,6 +97,7 @@ flutter:
     - jingle.mp3
     - labels.txt
     - model_unquant.tflite
+    - switch_daytime.flr
     - slideout-menu.flr
 
   # An image asset can refer to one or more resolution-specific "variants", see

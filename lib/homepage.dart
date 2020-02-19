@@ -260,6 +260,14 @@ class _LandingPageState extends State<LandingPage> {
                         title: Text('Check BIO metrics'),
                         onTap: () => Navigator.pushNamed(context, "/auth")),
                     ListTile(
+                        leading: Icon(Icons.add,
+                            size: 20, color: Colors.lightBlueAccent),
+                        title: Text(
+                          'Give Tips',
+                          maxLines: 2,
+                        ),
+                        onTap: () => Navigator.pushNamed(context, "/tips")),
+                    ListTile(
                         leading: Icon(Icons.rotate_90_degrees_ccw,
                             size: 20, color: Colors.redAccent),
                         title: Text(
@@ -384,6 +392,7 @@ class _LandingPageState extends State<LandingPage> {
                         activeColor: Colors.orangeAccent,
                         onChanged: (bool value) {
                           if (value) {
+                            print(value);
                             Provider.of<AppModel>(context).updateTheme(true);
                           } else
                             Provider.of<AppModel>(context).updateTheme(false);
@@ -401,7 +410,7 @@ class _LandingPageState extends State<LandingPage> {
                           color: Color(0XFF2e7d32),
                         ),
                         title: Text('Calendar'),
-                        onTap: () => Navigator.pushNamed(context, "/calendar")),
+                        onTap: () => Navigator.pushNamed(context, "/calendarbut")),
                     ListTile(
                         leading: Icon(
                           Icons.text_format,

@@ -1,19 +1,29 @@
 import 'package:flare_flutter/flare_actor.dart';
+import 'package:flutter_app/Model/appmodel.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class Calendar extends StatefulWidget {
+class CalendarBut extends StatefulWidget {
   @override
-  _CalendarState createState() => _CalendarState();
+  _CalendarButState createState() => _CalendarButState();
 }
 
-class _CalendarState extends State<Calendar> {
+class _CalendarButState extends State<CalendarBut> {
   @override
   var Date = '';
   var Time = '';
   bool isON =true;
 
   Widget build(BuildContext context) {
+//   bool darktheme=Provider.of<AppModel>(context).darkTheme;
+//
+//   onDarkTheme( ) {
+//     if (darktheme) {
+//       Provider.of<AppModel>(context).updateTheme(true);
+//     } else
+//       Provider.of<AppModel>(context).updateTheme(false);
+//   }
     return Scaffold(
       appBar: AppBar(
         title: Text('Datetime Picker'),
@@ -108,6 +118,21 @@ class _CalendarState extends State<Calendar> {
               padding: EdgeInsets.all(20),
               child: Text('Selected Date:$Date'),
             ),
+            SizedBox(height:20),
+            GestureDetector(
+//              onTap:  Provider.of<AppModel>(context, listen: false).swapTheme(),
+              child: Container(
+                height: 100,
+                width:200,
+                child: FlareActor(
+                    "assets/switch_daytime.flr",
+                    alignment: Alignment.center,
+                    fit: BoxFit.fitWidth,
+                    animation: isON ? "switch_night" : "switch_day"
+                ),
+              ),
+            ),
+            SizedBox(height:20),
             GestureDetector(
               onTap: (){
                 switchON();
@@ -126,6 +151,7 @@ class _CalendarState extends State<Calendar> {
         ),
       ),
     );
+
   }
 
   switchON() {
