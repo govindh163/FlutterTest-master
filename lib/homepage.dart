@@ -12,6 +12,8 @@ import 'Model/appmodel.dart';
 import 'package:flutter/services.dart';
 import 'package:quick_actions/quick_actions.dart';
 
+import 'Screens/drawer.dart';
+
 class LandingPage extends StatefulWidget {
   @override
   _LandingPageState createState() => _LandingPageState();
@@ -178,6 +180,14 @@ class _LandingPageState extends State<LandingPage> {
         backgroundColor: Colors.deepOrangeAccent,
         elevation: 50.0,
         actions: <Widget>[
+          Builder(
+            builder: (context) {
+              return IconButton(
+                icon: Icon(Icons.menu),
+                  onPressed: () => Navigator.pushReplacementNamed(context, "/drawer"),
+              );
+            },
+          ),
           GestureDetector(
               onTap: showToast,
               child: SpinnerAnimation(body: audioSpinner()))

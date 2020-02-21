@@ -11,6 +11,7 @@ import 'package:flutter_app/Screens/calendardate.dart';
 import 'package:flutter_app/Screens/christmas.dart';
 import 'package:flutter_app/Screens/custompaitsignup.dart';
 import 'package:flutter_app/Screens/dictionary.dart';
+import 'package:flutter_app/Screens/drawer.dart';
 import 'package:flutter_app/Screens/fasting.dart';
 import 'package:flutter_app/Screens/nativevolume.dart';
 import 'package:flutter_app/Screens/ocrtext.dart';
@@ -75,6 +76,7 @@ class _MyAppState extends State<MyApp> {
             home: Splash(),
             routes:<String, WidgetBuilder> {
               '/land': (context) => LandingPage(),
+              '/drawer': (context) => CustomGuitarDrawer(child: LandingPage(),),
               '/auth':(context) => MyHomePage(),
               '/json':(context) => MessageList(),
               '/camera':(context) => Homepage(),
