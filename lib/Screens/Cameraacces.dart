@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'dart:convert';
 import 'package:video_player/video_player.dart';
+import 'package:http/http.dart' as http;
 import 'package:chewie/chewie.dart';
 class Homepage extends StatefulWidget {
   @override
@@ -10,7 +12,12 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   VideoPlayerController _controller;
-
+  static final String uploadEndPoint =
+      'http://192.168.1.11/flutter_test/upload_image.php';
+  Future<File> file;
+  String status = '';
+  String base64Image;
+  String errMessage = 'Error Uploading Image';
   File _fileImage;
   File _fileVideo;
   @override
@@ -42,8 +49,36 @@ class _HomepageState extends State<Homepage> {
 
     setState(() {
       _fileImage= fileimage;
+      base64Image = base64Encode(fileimage.readAsBytesSync());
     });
   }
+  setStatus(String message) {
+    setState(() {
+      status = message;
+    });
+  }
+
+  startUpload() {
+    setStatus('Uploading Image...');
+    if (null == _fileImage) {
+      setStatus(errMessage);
+      return;
+    }
+    String fileName = _fileImage.path.split('/').last;
+    upload(fileName);
+  }
+
+  upload(String fileName) {
+    http.post(uploadEndPoint, body: {
+      "image": base64Image,
+      "name": fileName,
+    }).then((result) {
+      setStatus(result.statusCode == 200 ? result.body : errMessage);
+    }).catchError((error) {
+      setStatus(error.toString());
+    });
+  }
+
   Future getVideo(bool isCamera)async{
     File fileVideo;
     if(isCamera){
@@ -66,6 +101,20 @@ class _HomepageState extends State<Homepage> {
         icon:Icon(Icons.add_a_photo),
         onPressed: () {
           getImage(false);
+        },
+        padding: EdgeInsets.all(16),
+        color: Colors.lightBlueAccent,
+
+      ),
+    );
+    final button1 = Padding(
+      padding: EdgeInsets.symmetric(vertical: 16.0),
+      child: FlatButton.icon(
+        label: Text('Upload the Image'),
+        icon:Icon(Icons.arrow_upward),
+        onPressed: () {
+          //getImage(false);
+          startUpload();
         },
         padding: EdgeInsets.all(16),
         color: Colors.lightBlueAccent,
@@ -125,7 +174,19 @@ class _HomepageState extends State<Homepage> {
               child: Center(
                 child: Text("If you choose or Take photo it will be displayed here"),
               ),
-            ):Image.file(_fileImage,height: 500,width:300,fit: BoxFit.fill,),
+            ):Column(children: <Widget>[
+              Image.file(_fileImage,height: 500,width:300,fit: BoxFit.fill,),
+              button1,
+              Text(
+                status,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.green,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 20.0,
+                ),
+              ),
+            ],),
             _fileVideo==null?Container(
               child: Center(
                 child: Text("If you choose or Take Video it will be displayed here"),

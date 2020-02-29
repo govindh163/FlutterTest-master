@@ -15,6 +15,7 @@ import 'package:flutter_app/Screens/drawer.dart';
 import 'package:flutter_app/Screens/fasting.dart';
 import 'package:flutter_app/Screens/nativevolume.dart';
 import 'package:flutter_app/Screens/ocrtext.dart';
+import 'package:flutter_app/Screens/screenshot.dart';
 import 'package:flutter_app/Screens/timepicker.dart';
 import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -59,8 +60,11 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _app = AppModel();
+
   @override
   Widget build(BuildContext context) {
+  //  bool theme= Provider.of<AppModel>(context).darkTheme;
+   // print(_app.darkTheme);
     return ChangeNotifierProvider<AppModel>.value(
       value:_app ,
       child: Consumer<AppModel>(
@@ -68,7 +72,7 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: 'You Are GREAT',
             debugShowCheckedModeBanner: false,
-            theme: Provider.of<AppModel>(context).darkTheme
+            theme:_app.darkTheme
                 ? buildDarkTheme()
                 .copyWith(primaryColor:Colors.orangeAccent )
                 : buildLightTheme()
@@ -79,6 +83,7 @@ class _MyAppState extends State<MyApp> {
               '/drawer': (context) => CustomGuitarDrawer(child: LandingPage(),),
               '/auth':(context) => MyHomePage(),
               '/json':(context) => MessageList(),
+              '/screenshot':(context) => ScreenShot(),
               '/camera':(context) => Homepage(),
               '/graphs':(context) => StatisticsPage(),
               '/browser':(context) => WebViewExample(),

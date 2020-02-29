@@ -336,6 +336,11 @@ class _LandingPageState extends State<LandingPage> {
                         title: Text('QR Scanner'),
                         onTap: () => Navigator.pushNamed(context, "/qrscan")),
                     ListTile(
+                        leading: Icon(Icons.mobile_screen_share,
+                            size: 20, color: Colors.deepPurpleAccent),
+                        title: Text('Screenshot'),
+                        onTap: () => Navigator.pushNamed(context, "/screenshot")),
+                    ListTile(
                         leading: Icon(Icons.network_check,
                             size: 20, color: Colors.amber),
                         title: Text('Network'),

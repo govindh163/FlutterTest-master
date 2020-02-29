@@ -13,7 +13,7 @@ class AppModel with ChangeNotifier {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       darkTheme = prefs.getBool("darkTheme") ?? false;
-      debugPrint(darkTheme.toString());
+      debugPrint("theme"+darkTheme.toString());
       return true;
     } catch (err) {
       return false;

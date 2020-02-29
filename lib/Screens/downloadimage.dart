@@ -15,25 +15,25 @@ class _DownloadImageState extends State<DownloadImage> {
   var dio = Dio();
   var progress = "";
   bool downloading = false;
-//  Future download1(Dio dio, String url) async {
-//    CancelToken cancelToken = CancelToken();
-//
-//    Directory directory = await getExternalStorageDirectory();
-//    if(!Directory("${directory.path}/Downloaded Status/Videos").existsSync()){
-//      Directory("${directory.path}/Downloaded Status/Videos").createSync(recursive: true);
-//    }
-//    try {
-//      await dio.download(url, "${directory.path}/Downloaded Status/Videos",
-//          onReceiveProgress: showDownloadProgress, cancelToken: cancelToken);
-//    } catch (e) {
-//      print(e);
-//    }
-//  }
-//  void showDownloadProgress(received, total) {
-//    if (total != -1) {
-//      print((received / total * 100).toStringAsFixed(0) + "%");
-//    }
-//  }
+  Future download1(Dio dio, String url) async {
+    CancelToken cancelToken = CancelToken();
+
+    Directory directory = await getExternalStorageDirectory();
+    if(!Directory("${directory.path}/Downloaded Status/Videos").existsSync()){
+      Directory("${directory.path}/Downloaded Status/Videos").createSync(recursive: true);
+    }
+    try {
+      await dio.download(url, "${directory.path}/Downloaded Status/Videos",
+          onReceiveProgress: showDownloadProgress, cancelToken: cancelToken);
+    } catch (e) {
+      print(e);
+    }
+  }
+  void showDownloadProgress(received, total) {
+    if (total != -1) {
+      print((received / total * 100).toStringAsFixed(0) + "%");
+    }
+  }
   Future<void> _download() async {
     Dio dio = Dio();
     Directory dirToSave = await getExternalStorageDirectory();
@@ -85,8 +85,8 @@ class _DownloadImageState extends State<DownloadImage> {
             RaisedButton(
               child: Text('Download'),
               onPressed:  (){
-               // download1(dio, url,);
-                _download();
+              download1(dio, url,);
+               // _download();
               },
               color: Colors.red,
             ),
