@@ -92,6 +92,10 @@ flutter:
 
 
   assets:
+    - apple.png
+    - apple@3x.png
+    - icons8-cherry.png
+    - icons8-star-512.png
     - butt.flr
     - avatar.png
     - jingle.mp3

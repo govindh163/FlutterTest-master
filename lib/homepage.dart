@@ -321,6 +321,11 @@ class _LandingPageState extends State<LandingPage> {
                         title: Text('Gender'),
                         onTap: () => Navigator.pushNamed(context, "/gender")),
                     ListTile(
+                        leading:
+                        Icon(Icons.slow_motion_video, size: 20, color: Colors.greenAccent),
+                        title: Text('Slots App'),
+                        onTap: () => Navigator.pushNamed(context, "/slots")),
+                    ListTile(
                         leading: Icon(Icons.phone_forwarded,
                             size: 20, color: Colors.green),
                         title: Text('Call'),

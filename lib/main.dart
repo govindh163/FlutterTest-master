@@ -16,6 +16,7 @@ import 'package:flutter_app/Screens/fasting.dart';
 import 'package:flutter_app/Screens/nativevolume.dart';
 import 'package:flutter_app/Screens/ocrtext.dart';
 import 'package:flutter_app/Screens/screenshot.dart';
+import 'package:flutter_app/Screens/slotsApp.dart';
 import 'package:flutter_app/Screens/timepicker.dart';
 import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -108,6 +109,7 @@ class _MyAppState extends State<MyApp> {
               '/texttospeech': (BuildContext context) => TTSPluginRecipe(),
               '/flipcard': (BuildContext context) => CardFlip(),
               '/time': (BuildContext context) => FlutterTimeDemo(),
+              '/slots': (BuildContext context) =>  SlotsApp(),
               '/admob': (BuildContext context) => AdmobFlutter(),
               '/country': (BuildContext context) => AllCountries(),
               '/dbsql': (BuildContext context) => DBTestPage(),
