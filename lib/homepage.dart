@@ -291,6 +291,11 @@ class _LandingPageState extends State<LandingPage> {
                         title: Text('Camera Access'),
                         onTap: () => Navigator.pushNamed(context, "/camera")),
                     ListTile(
+                        leading: Icon(Icons.change_history,
+                            size: 20, color: Colors.redAccent),
+                        title: Text('Smart Mantra'),
+                        onTap: () => Navigator.pushNamed(context, "/mantra")),
+                    ListTile(
                         leading:
                             Icon(Icons.equalizer, size: 20, color: Colors.pink),
                         title: Text('Graphs'),

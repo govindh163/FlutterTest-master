@@ -67,6 +67,8 @@ dependencies:
   font_awesome_flutter: ^8.5.0
   smart_flare: ^0.2.8
   image_gallery_saver: ^1.2.2
+  carousel_slider: ^1.4.1
+  carousel_pro: ^1.0.0
 
 
 
@@ -92,6 +94,7 @@ flutter:
 
 
   assets:
+    - assets/img/
     - apple.png
     - apple@3x.png
     - icons8-cherry.png
@@ -103,6 +106,9 @@ flutter:
     - model_unquant.tflite
     - switch_daytime.flr
     - slideout-menu.flr
+    - shivamantra.mp3
+    - mahamirtyunjayamantra.mp3
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -13,6 +13,7 @@ import 'package:flutter_app/Screens/custompaitsignup.dart';
 import 'package:flutter_app/Screens/dictionary.dart';
 import 'package:flutter_app/Screens/drawer.dart';
 import 'package:flutter_app/Screens/fasting.dart';
+import 'package:flutter_app/Screens/mantra.dart';
 import 'package:flutter_app/Screens/nativevolume.dart';
 import 'package:flutter_app/Screens/ocrtext.dart';
 import 'package:flutter_app/Screens/screenshot.dart';
@@ -85,6 +86,7 @@ class _MyAppState extends State<MyApp> {
               '/auth':(context) => MyHomePage(),
               '/json':(context) => MessageList(),
               '/screenshot':(context) => ScreenShot(),
+              '/mantra':(context) => SmartMantra(),
               '/camera':(context) => Homepage(),
               '/graphs':(context) => StatisticsPage(),
               '/browser':(context) => WebViewExample(),

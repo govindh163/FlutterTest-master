@@ -13,7 +13,7 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   VideoPlayerController _controller;
   static final String uploadEndPoint =
-      'http://192.168.1.11/flutter_test/upload_image.php';
+      'http://192.168.1.13/flutter_test/upload_image.php';
   Future<File> file;
   String status = '';
   String base64Image;

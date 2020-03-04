@@ -35,9 +35,11 @@ class _SwiperSState extends State<SwiperS> {
             );
           },
           itemCount: 3,
-          scrollDirection: Axis.horizontal,
+          scrollDirection: Axis.vertical,
           pagination: new SwiperPagination(),
           control: new SwiperControl(),
+          autoplay: true,
+          autoplayDelay: 1,
         ),
       ),
     );
