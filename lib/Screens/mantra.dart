@@ -1,4 +1,6 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SmartMantra extends StatefulWidget {
@@ -8,6 +10,7 @@ class SmartMantra extends StatefulWidget {
 
 class _SmartMantraState extends State<SmartMantra> {
   int duration = 1;
+  final AssetsAudioPlayer _assetsAudioPlayer = AssetsAudioPlayer();
   List<Image> images = [
     Image.asset(
       "assets/img/a0.png",
@@ -44,18 +47,23 @@ class _SmartMantraState extends State<SmartMantra> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     print(duration);
     return Scaffold(
         body: Column(
-      children: <Widget>[
-        SizedBox(
-          height: 30,
-        ),
-        getImageContainer(),
-        getControllerContainer()
-      ],
-    ));
+          children: <Widget>[
+            SizedBox(
+              height: 30,
+            ),
+            getImageContainer(),
+            getControllerContainer()
+          ],
+        ));
   }
 
   getImageContainer() {
@@ -78,8 +86,8 @@ class _SmartMantraState extends State<SmartMantra> {
               initialPage: 0,
               enableInfiniteScroll: true,
               autoPlay: true,
-            autoPlayInterval: Duration(seconds: 5),
-            //  autoPlayAnimationDuration: Duration(milliseconds: 800),
+              autoPlayInterval: Duration(seconds: 5),
+              //  autoPlayAnimationDuration: Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,
               scrollDirection: Axis.horizontal,
             ),
@@ -94,7 +102,7 @@ class _SmartMantraState extends State<SmartMantra> {
             foregroundColor: Colors.black,
             child: Center(
               child: new Text(
-                "  show   \n mantra",
+                "  Show   \n Mantra",
                 style: TextStyle(color: Colors.white, fontSize: 12),
               ),
             ),
@@ -118,7 +126,6 @@ class _SmartMantraState extends State<SmartMantra> {
       ],
     );
   }
-
 
 
   getControllerContainer() {
@@ -224,15 +231,39 @@ class _SmartMantraState extends State<SmartMantra> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           SizedBox(
-            height: 15,
+            height: 3,
           ),
-          Image.asset(
-            "assets/img/play.png",
-            fit: BoxFit.contain,
+          StreamBuilder(
+            stream: _assetsAudioPlayer.isPlaying,
+            initialData: false,
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              return Container(
+//                  color: Colors.blue,
+                  padding: EdgeInsets.only( top: 10),
+                  child: Center(
+                    child: GestureDetector(onTap: () {
+                      _assetsAudioPlayer.open("assets/shivamantra.mp3");
+                      _assetsAudioPlayer.playOrPause();
+                    },
+                      child: Icon(
+                      snapshot.data ? Icons.pause : Icons.play_arrow, size: 90,
+                      color: Colors.white,
+                    ),
+                  )
+              ),);
+            },
           ),
-          Image.asset(
-            "assets/img/stop.png",
-            fit: BoxFit.contain,
+          StreamBuilder(
+            stream: _assetsAudioPlayer.isLooping,
+            initialData: false,
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              return RaisedButton(
+                child: Text(snapshot.data ? "Looping" : "Not looping"),
+                onPressed: () {
+                  _assetsAudioPlayer.toggleLoop();
+                },
+              );
+            },
           ),
         ],
       ),
