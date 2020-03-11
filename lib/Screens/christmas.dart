@@ -60,9 +60,17 @@ class _MyTreeState extends State<MyTree> {
               height: 20,
             ),
             RaisedButton(
+              color: Colors.white,
               child: Text("Stop"),
               onPressed: () {
-                audioPlayer.stop();
+                audioPlayer.pause();
+              },
+            ),
+            RaisedButton(
+              color: Colors.white,
+              child: Text("resume"),
+              onPressed: () {
+                audioPlayer.resume();
               },
             )
           ],

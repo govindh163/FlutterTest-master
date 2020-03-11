@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/Model/countprovider.dart';
 import 'package:flutter_app/Screens/Animatepage.dart';
 import 'package:flutter_app/Screens/InshortSwipe.dart';
 import 'package:flutter_app/Screens/NotePage.dart';
@@ -34,6 +35,7 @@ import 'Screens/Scratchcard.dart';
 import 'Screens/Swiper.dart';
 import 'Screens/Textanimation.dart';
 import 'Screens/Time.dart';
+import 'Screens/audiocache.dart';
 import 'Screens/downloadimage.dart';
 import 'Screens/graphs.dart';
 import 'Screens/json.dart';
@@ -71,60 +73,65 @@ class _MyAppState extends State<MyApp> {
       value:_app ,
       child: Consumer<AppModel>(
         builder: (context, value, child) {
-          return MaterialApp(
-            title: 'You Are GREAT',
-            debugShowCheckedModeBanner: false,
-            theme:_app.darkTheme
-                ? buildDarkTheme()
-                .copyWith(primaryColor:Colors.orangeAccent )
-                : buildLightTheme()
-                .copyWith(primaryColor:Colors.orangeAccent),
-            home: Splash(),
-            routes:<String, WidgetBuilder> {
-              '/land': (context) => LandingPage(),
-              '/drawer': (context) => CustomGuitarDrawer(child: LandingPage(),),
-              '/auth':(context) => MyHomePage(),
-              '/json':(context) => MessageList(),
-              '/screenshot':(context) => ScreenShot(),
-              '/mantra':(context) => SmartMantra(),
-              '/camera':(context) => Homepage(),
-              '/graphs':(context) => StatisticsPage(),
-              '/browser':(context) => WebViewExample(),
-              '/scartch':(context) => AppBody(),
-              '/gender':(context) => GenderPredict(),
-              '/call':(context) => CallPhone(),
-              '/contacts':(context) => ContactListPage(),
-              '/add': (BuildContext context) => AddContactPage(),
-              '/qrscan': (BuildContext context) => QrScan(),
-              '/networkcheck': (BuildContext context) => NetworkCheck(),
-              '/swiper': (BuildContext context) => SwiperS(),
-              '/localnotify': (BuildContext context) => LocalNotify(),
-              '/download': (BuildContext context) => DownloadImage(),
-              '/tips': (BuildContext context) => CalculateTips(),
-              '/tflite': (BuildContext context) => TfModel(),
-              '/home': (BuildContext context) => Home(),
-              '/calendarbut': (BuildContext context) => CalendarBut(),
-              '/animate': (BuildContext context) => AnimatePage(),
-              '/text': (BuildContext context) => TextAnimate(),
-              '/urllaunch': (BuildContext context) => WebViewContainer(),
-              '/nativevolume': (BuildContext context) => NativeVolume(),
-              '/texttospeech': (BuildContext context) => TTSPluginRecipe(),
-              '/flipcard': (BuildContext context) => CardFlip(),
-              '/time': (BuildContext context) => FlutterTimeDemo(),
-              '/slots': (BuildContext context) =>  SlotsApp(),
-              '/admob': (BuildContext context) => AdmobFlutter(),
-              '/country': (BuildContext context) => AllCountries(),
-              '/dbsql': (BuildContext context) => DBTestPage(),
-              '/studentmgmr': (BuildContext context) => UpdatePage(),
-              '/ocrtext': (BuildContext context) => BottomBar(),
-              '/news': (BuildContext context) => NewsPage(),
-              '/voice': (BuildContext context) => VoiceRecord(),
-              '/calendar': (BuildContext context) => CalendarPage(),
-              '/Signup': (BuildContext context) => Signup(),
-              '/tree': (BuildContext context) => MyTree(),
-              '/word': (BuildContext context) => Dictionary(),
-              '/fasting': (BuildContext context) => GoFast(),
-            },
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider<CountProvider>.value(value: CountProvider()),
+            ],
+            child: MaterialApp(
+              title: 'You Are GREAT',
+              debugShowCheckedModeBanner: false,
+              theme:_app.darkTheme
+                  ? buildDarkTheme()
+                  .copyWith(primaryColor:Colors.orangeAccent )
+                  : buildLightTheme()
+                  .copyWith(primaryColor:Colors.orangeAccent),
+              home: Splash(),
+              routes:<String, WidgetBuilder> {
+                '/land': (context) => LandingPage(),
+                '/drawer': (context) => CustomGuitarDrawer(child: LandingPage(),),
+                '/auth':(context) => MyHomePage(),
+                '/json':(context) => MessageList(),
+                '/screenshot':(context) => ScreenShot(),
+                '/mantra':(context) => SmartMantra(),
+                '/camera':(context) => Homepage(),
+                '/graphs':(context) => StatisticsPage(),
+                '/browser':(context) => WebViewExample(),
+                '/scartch':(context) => AppBody(),
+                '/gender':(context) => GenderPredict(),
+                '/call':(context) => CallPhone(),
+                '/contacts':(context) => ContactListPage(),
+                '/add': (BuildContext context) => AddContactPage(),
+                '/qrscan': (BuildContext context) => QrScan(),
+                '/networkcheck': (BuildContext context) => NetworkCheck(),
+                '/swiper': (BuildContext context) => SwiperS(),
+                '/localnotify': (BuildContext context) => LocalNotify(),
+                '/download': (BuildContext context) => DownloadImage(),
+                '/tips': (BuildContext context) => CalculateTips(),
+                '/tflite': (BuildContext context) => TfModel(),
+                '/home': (BuildContext context) => Home(),
+                '/calendarbut': (BuildContext context) => CalendarBut(),
+                '/animate': (BuildContext context) => AnimatePage(),
+                '/text': (BuildContext context) => TextAnimate(),
+                '/urllaunch': (BuildContext context) => WebViewContainer(),
+                '/nativevolume': (BuildContext context) => NativeVolume(),
+                '/texttospeech': (BuildContext context) => TTSPluginRecipe(),
+                '/flipcard': (BuildContext context) => CardFlip(),
+                '/time': (BuildContext context) => FlutterTimeDemo(),
+                '/slots': (BuildContext context) =>  SlotsApp(),
+                '/admob': (BuildContext context) => AdmobFlutter(),
+                '/country': (BuildContext context) => AllCountries(),
+                '/dbsql': (BuildContext context) => DBTestPage(),
+                '/studentmgmr': (BuildContext context) => UpdatePage(),
+                '/ocrtext': (BuildContext context) => BottomBar(),
+                '/news': (BuildContext context) => NewsPage(),
+                '/voice': (BuildContext context) => VoiceRecord(),
+                '/calendar': (BuildContext context) => CalendarPage(),
+                '/Signup': (BuildContext context) => Signup(),
+                '/tree': (BuildContext context) => MyTree(),
+                '/word': (BuildContext context) => Dictionary(),
+                '/fasting': (BuildContext context) => GoFast(),
+              },
+            ),
           );
         },),
     );

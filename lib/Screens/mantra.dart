@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 
 class SmartMantra extends StatefulWidget {
   @override
@@ -9,7 +11,16 @@ class SmartMantra extends StatefulWidget {
 }
 
 class _SmartMantraState extends State<SmartMantra> {
-  int duration = 1;
+  StreamSubscription _positionSubscription;
+  Duration position;
+  bool isfirstLine=false;
+  bool issecondline=false;
+  bool isthirdLine=false;
+  bool isfourLine=false;
+  //StreamSubscription _audioPlayerStateSubscription;
+  int count = 1;
+  bool isshow = false;
+  Duration pos;
   final AssetsAudioPlayer _assetsAudioPlayer = AssetsAudioPlayer();
   List<Image> images = [
     Image.asset(
@@ -45,25 +56,102 @@ class _SmartMantraState extends State<SmartMantra> {
       fit: BoxFit.fill,
     ),
   ];
-
+  addCount(){
+    setState(() {
+      print("hi");
+      count=count+1;
+      print(count);
+    });
+  }
+  stream(){
+    _positionSubscription = _assetsAudioPlayer.currentPosition
+        .listen((p) => setState(() => position = p));
+  }
   @override
   void initState() {
+    _assetsAudioPlayer.open("assets/shivamantra.mp3");
+    stream();
+    _assetsAudioPlayer.finished.listen((finished) {
+      print(finished);
+     addCount();
+      setTextColor();
+//      print(count);
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(duration);
     return Scaffold(
         body: Column(
+      children: <Widget>[
+        SizedBox(
+          height: 30,
+        ),
+        getImageContainer(),
+        isshow ? getTextContainer() : getControllerContainer(),
+        //getTextContainer()
+      ],
+    ));
+  }
+
+  getTextContainer() {
+    return Container(
+        height: 180,
+        width: 380,
+        color: Colors.black,
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            SizedBox(
-              height: 30,
+            Text(
+              "Aum Trayambakam Yajamahe",
+              textScaleFactor: 1.5,
+              style: TextStyle(color:isfirstLine?Colors.red: Colors.white),
             ),
-            getImageContainer(),
-            getControllerContainer()
+            Text(
+              "Sugandhim Pushti Vardhanam",
+              textScaleFactor: 1.5,
+              style: TextStyle(color:issecondline?Colors.red: Colors.white),
+            ),
+            Text(
+              "Urva Rukamiva Bandhanan",
+              textScaleFactor: 1.5,
+              style: TextStyle(color:isthirdLine?Colors.red: Colors.white),
+            ),
+            Text(
+              "Mrtyor Muksheeya Maamritat",
+              textScaleFactor: 1.5,
+              style: TextStyle(color:isfourLine?Colors.red: Colors.white),
+            ),
           ],
         ));
+  }
+
+  _showMantra() {
+    setState(() {
+      isshow = !isshow;
+    });
+  }
+  setTextColor(){
+    if(durationToone(position)>0 && durationToone(position)<5){
+        isfirstLine=true;
+    }
+    if(durationToone(position)>5 && durationToone(position)<10){
+      setState(() {
+        issecondline=true;
+      });
+    }
+    if(durationToone(position)>10 && durationToone(position)<15){
+      setState(() {
+        isthirdLine=true;
+      });
+    }
+    if(durationToone(position)>15 && durationToone(position)<20){
+      setState(() {
+        isfourLine=true;
+      });
+    }
   }
 
   getImageContainer() {
@@ -96,14 +184,17 @@ class _SmartMantraState extends State<SmartMantra> {
         ),
         Positioned(
           top: 533,
-          child: CircleAvatar(
-            radius: 25,
-            backgroundColor: Colors.black,
-            foregroundColor: Colors.black,
-            child: Center(
-              child: new Text(
-                "  Show   \n Mantra",
-                style: TextStyle(color: Colors.white, fontSize: 12),
+          child: GestureDetector(
+            onTap: _showMantra,
+            child: CircleAvatar(
+              radius: 25,
+              backgroundColor: Colors.black,
+              foregroundColor: Colors.black,
+              child: Center(
+                child: new Text(
+                  durationToone(position).toString(),
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
               ),
             ),
           ),
@@ -126,7 +217,6 @@ class _SmartMantraState extends State<SmartMantra> {
       ],
     );
   }
-
 
   getControllerContainer() {
     return Container(
@@ -171,10 +261,8 @@ class _SmartMantraState extends State<SmartMantra> {
           SizedBox(
             height: 10,
           ),
-          Text(
-            "Count = 3",
-            style: TextStyle(color: Colors.white),
-          ),
+         Text("Count:$count",style: TextStyle(color: Colors.white),),
+         //Text(Provider.of<CountProvider>(context).newCount.toString(),style: TextStyle(color: Colors.white),),
           SizedBox(
             height: 30,
           ),
@@ -239,18 +327,20 @@ class _SmartMantraState extends State<SmartMantra> {
             builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
               return Container(
 //                  color: Colors.blue,
-                  padding: EdgeInsets.only( top: 10),
-                  child: Center(
-                    child: GestureDetector(onTap: () {
-                      _assetsAudioPlayer.open("assets/shivamantra.mp3");
-                      _assetsAudioPlayer.playOrPause();
-                    },
-                      child: Icon(
-                      snapshot.data ? Icons.pause : Icons.play_arrow, size: 90,
-                      color: Colors.white,
-                    ),
-                  )
-              ),);
+                padding: EdgeInsets.only(top: 10),
+                child: Center(
+                    child: GestureDetector(
+                  onTap: () {
+                    _assetsAudioPlayer.open("assets/shivamantra.mp3");
+                    _assetsAudioPlayer.playOrPause();
+                  },
+                  child: Icon(
+                    snapshot.data ? Icons.pause : Icons.play_arrow,
+                    size: 90,
+                    color: Colors.white,
+                  ),
+                )),
+              );
             },
           ),
           StreamBuilder(
@@ -285,43 +375,80 @@ class _SmartMantraState extends State<SmartMantra> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           SizedBox(
-            height: 50,
-          ),
-          Row(
-            children: <Widget>[
-              Text(
-                '         1',
-                style: TextStyle(color: Colors.white),
-              ),
-              SizedBox(
-                width: 60,
-              ),
-              Text(
-                '3',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
-          ),
-          SizedBox(
             height: 30,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+              StreamBuilder(
+                stream: _assetsAudioPlayer.currentPosition,
+                initialData: const Duration(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<Duration> snapshot) {
+                  Duration duration = snapshot.data;
+                  return Text(
+                    durationToString(duration),
+                    style: TextStyle(color: Colors.white),
+                  );
+                },
+              ),
               Text(
-                '         5',
+                " - ",
                 style: TextStyle(color: Colors.white),
               ),
-              SizedBox(
-                width: 60,
-              ),
-              Text(
-                '10',
-                style: TextStyle(color: Colors.white),
-              ),
+              StreamBuilder(
+                  stream: _assetsAudioPlayer.currentPosition,
+                  builder: (context, asyncSnapshot) {
+                    if (asyncSnapshot.hasData) {
+                      final Duration duration =
+                          _assetsAudioPlayer.current.value.duration;
+                      return Text(
+                        durationToString(duration),
+                        style: TextStyle(color: Colors.red),
+                      );
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  }),
             ],
+          ),
+          SizedBox(
+            height: 10,
           ),
         ],
       ),
     );
   }
 }
+
+String durationToString(Duration duration) {
+  String twoDigits(int n) {
+    if (n >= 10) return "$n";
+    return "0$n";
+  }
+
+  String twoDigitMinutes =
+      twoDigits(duration.inMinutes.remainder(Duration.minutesPerHour));
+  String twoDigitSeconds =
+      twoDigits(duration.inSeconds.remainder(Duration.secondsPerMinute));
+  return "$twoDigitMinutes:$twoDigitSeconds";
+}
+int durationToone(Duration duration) {
+  int twoDigits(int n) {
+    if (n >= 10) return n;
+    return n;
+  }
+
+  int twoDigitSeconds =
+  twoDigits(duration.inSeconds.remainder(Duration.secondsPerMinute));
+  return twoDigitSeconds;
+}
+
+//Center(
+//child: Text(
+//"Aum Trayambakam Yajamahe \n Sugandhim Pushti Vardhanam \n  Urva Rukamiva Bandhanan\n Mrtyor Muksheeya Maamritat",
+//textScaleFactor: 1.5,
+//style: TextStyle(
+//color: Colors.white
+//),
+//),
+//),
