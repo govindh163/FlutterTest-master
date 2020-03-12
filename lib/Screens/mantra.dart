@@ -3,7 +3,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SmartMantra extends StatefulWidget {
   @override
@@ -13,14 +13,12 @@ class SmartMantra extends StatefulWidget {
 class _SmartMantraState extends State<SmartMantra> {
   StreamSubscription _positionSubscription;
   Duration position;
-  bool isfirstLine=false;
-  bool issecondline=false;
-  bool isthirdLine=false;
-  bool isfourLine=false;
-  //StreamSubscription _audioPlayerStateSubscription;
+  bool isfirstLine = false;
+  bool issecondline = false;
+  bool isthirdLine = false;
+  bool isfourLine = false;
   int count = 1;
   bool isshow = false;
-  Duration pos;
   final AssetsAudioPlayer _assetsAudioPlayer = AssetsAudioPlayer();
   List<Image> images = [
     Image.asset(
@@ -56,28 +54,32 @@ class _SmartMantraState extends State<SmartMantra> {
       fit: BoxFit.fill,
     ),
   ];
-  addCount(){
-    setState(() {
-      print("hi");
-      count=count+1;
-      print(count);
-    });
+
+  addCount() {
+      count = count + 1;
   }
-  stream(){
+
+  stream() {
     _positionSubscription = _assetsAudioPlayer.currentPosition
-        .listen((p) => setState(() => position = p));
+        .listen((p) => setState(() => position = p),);
   }
+
   @override
   void initState() {
     _assetsAudioPlayer.open("assets/shivamantra.mp3");
     stream();
     _assetsAudioPlayer.finished.listen((finished) {
       print(finished);
-     addCount();
-      setTextColor();
-//      print(count);
+      addCount();
+      Fluttertoast.showToast(msg: "Mantra Played $count times");
     });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _positionSubscription.cancel();
+    super.dispose();
   }
 
   @override
@@ -104,26 +106,10 @@ class _SmartMantraState extends State<SmartMantra> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Text(
-              "Aum Trayambakam Yajamahe",
-              textScaleFactor: 1.5,
-              style: TextStyle(color:isfirstLine?Colors.red: Colors.white),
-            ),
-            Text(
-              "Sugandhim Pushti Vardhanam",
-              textScaleFactor: 1.5,
-              style: TextStyle(color:issecondline?Colors.red: Colors.white),
-            ),
-            Text(
-              "Urva Rukamiva Bandhanan",
-              textScaleFactor: 1.5,
-              style: TextStyle(color:isthirdLine?Colors.red: Colors.white),
-            ),
-            Text(
-              "Mrtyor Muksheeya Maamritat",
-              textScaleFactor: 1.5,
-              style: TextStyle(color:isfourLine?Colors.red: Colors.white),
-            ),
+             getText(isfirstLine, "Aum Trayambakam Yajamahe", 0, 5),
+             getText(issecondline, "Sugandhim Pushti Vardhanam", 4, 10),
+             getText(isthirdLine, " Urva Rukamiva Bandhanan", 9, 15),
+             getText(isfourLine, "Mrtyor Muksheeya Maamritat", 14, 20),
           ],
         ));
   }
@@ -132,26 +118,6 @@ class _SmartMantraState extends State<SmartMantra> {
     setState(() {
       isshow = !isshow;
     });
-  }
-  setTextColor(){
-    if(durationToone(position)>0 && durationToone(position)<5){
-        isfirstLine=true;
-    }
-    if(durationToone(position)>5 && durationToone(position)<10){
-      setState(() {
-        issecondline=true;
-      });
-    }
-    if(durationToone(position)>10 && durationToone(position)<15){
-      setState(() {
-        isthirdLine=true;
-      });
-    }
-    if(durationToone(position)>15 && durationToone(position)<20){
-      setState(() {
-        isfourLine=true;
-      });
-    }
   }
 
   getImageContainer() {
@@ -261,8 +227,11 @@ class _SmartMantraState extends State<SmartMantra> {
           SizedBox(
             height: 10,
           ),
-         Text("Count:$count",style: TextStyle(color: Colors.white),),
-         //Text(Provider.of<CountProvider>(context).newCount.toString(),style: TextStyle(color: Colors.white),),
+          Text(
+            "Count:$count",
+            style: TextStyle(color: Colors.white),
+          ),
+          //Text(Provider.of<CountProvider>(context).newCount.toString(),style: TextStyle(color: Colors.white),),
           SizedBox(
             height: 30,
           ),
@@ -371,11 +340,11 @@ class _SmartMantraState extends State<SmartMantra> {
             height: 10,
           ),
           Text(
-            "Image Switching in Sec",
+            "Playing Audio",
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           SizedBox(
-            height: 30,
+            height: 40,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -388,7 +357,7 @@ class _SmartMantraState extends State<SmartMantra> {
                   Duration duration = snapshot.data;
                   return Text(
                     durationToString(duration),
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white,fontSize: 25),
                   );
                 },
               ),
@@ -404,7 +373,7 @@ class _SmartMantraState extends State<SmartMantra> {
                           _assetsAudioPlayer.current.value.duration;
                       return Text(
                         durationToString(duration),
-                        style: TextStyle(color: Colors.red),
+                        style: TextStyle(color: Colors.red,fontSize: 25),
                       );
                     }
                     return Center(child: CircularProgressIndicator());
@@ -416,6 +385,27 @@ class _SmartMantraState extends State<SmartMantra> {
           ),
         ],
       ),
+    );
+  }
+  getText(bool line,String txt,int low,int high){
+    return  StreamBuilder(
+      stream: _assetsAudioPlayer.currentPosition,
+      initialData: const Duration(),
+      builder:
+          (BuildContext context, AsyncSnapshot<Duration> snapshot) {
+        var duration = durationToone(snapshot.data);
+        if(duration>low&&duration<high){
+          line=true;
+        }
+        else{
+          line=false;
+        }
+        return Text(
+         txt,
+          textScaleFactor: 1.5,
+          style: TextStyle(color: line ? Colors.red : Colors.white),
+        );
+      },
     );
   }
 }
@@ -432,6 +422,7 @@ String durationToString(Duration duration) {
       twoDigits(duration.inSeconds.remainder(Duration.secondsPerMinute));
   return "$twoDigitMinutes:$twoDigitSeconds";
 }
+
 int durationToone(Duration duration) {
   int twoDigits(int n) {
     if (n >= 10) return n;
@@ -439,7 +430,7 @@ int durationToone(Duration duration) {
   }
 
   int twoDigitSeconds =
-  twoDigits(duration.inSeconds.remainder(Duration.secondsPerMinute));
+      twoDigits(duration.inSeconds.remainder(Duration.secondsPerMinute));
   return twoDigitSeconds;
 }
 
