@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:share/share.dart';
-
-
 import '../mantraconfig.dart';
 
 class SmartMantra extends StatefulWidget {
@@ -20,7 +18,6 @@ class _SmartMantraState extends State<SmartMantra> {
   Duration totalDur = const Duration(seconds: 0);
   bool isfirstLine = false;
   bool issecondline = false;
-
   bool isthirdLine = false;
   bool isfourLine = false;
   int count = 0;
@@ -113,8 +110,8 @@ class _SmartMantraState extends State<SmartMantra> {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    var height= MediaQuery.of(context).size.height;
+//    var width = MediaQuery.of(context).size.width;
+//    var height= MediaQuery.of(context).size.height;
     return Scaffold(
         body: Column(
           children: <Widget>[
@@ -161,11 +158,11 @@ class _SmartMantraState extends State<SmartMantra> {
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.all(Radius.circular(25.0)),
             ),
-            height: MediaQuery.of(context).size.height-210,
+            height: MediaQuery.of(context).size.height-290,
             width: MediaQuery.of(context).size.width-20,
             child: CarouselSlider(
               items: images,
-              height: 583,
+              height:  MediaQuery.of(context).size.height-290,
               aspectRatio: 16 / 9,
               viewportFraction: 2.0,
               initialPage: 0,
@@ -180,7 +177,7 @@ class _SmartMantraState extends State<SmartMantra> {
           ),
         ),
         Positioned(
-          top: MediaQuery.of(context).size.height-256,
+          top: MediaQuery.of(context).size.height-335,
           child: GestureDetector(
             onTap: _showMantra,
             child: CircleAvatar(
@@ -200,7 +197,7 @@ class _SmartMantraState extends State<SmartMantra> {
           ),
         ),
         Positioned(
-          top: MediaQuery.of(context).size.height-256,
+          top: MediaQuery.of(context).size.height-335,
           left: 350,
           child: CircleAvatar(
             radius: 25,
@@ -485,6 +482,7 @@ class _SmartMantraState extends State<SmartMantra> {
 
   setPlayTimes(int val) {
     playTimes = val;
+    setState(() {});
     print(playTimes);
   }
 }
