@@ -67,8 +67,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-  //  bool theme= Provider.of<AppModel>(context).darkTheme;
-   // print(_app.darkTheme);
+    //  bool theme= Provider.of<AppModel>(context).darkTheme;
+    // print(_app.darkTheme);
     return ChangeNotifierProvider<AppModel>.value(
       value:_app ,
       child: Consumer<AppModel>(

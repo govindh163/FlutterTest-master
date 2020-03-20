@@ -4,6 +4,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:share/share.dart';
+
+
+import '../mantraconfig.dart';
 
 class SmartMantra extends StatefulWidget {
   @override
@@ -12,68 +16,92 @@ class SmartMantra extends StatefulWidget {
 
 class _SmartMantraState extends State<SmartMantra> {
   StreamSubscription _positionSubscription;
-  Duration position;
+  Duration position = const Duration();
+  Duration totalDur = const Duration(seconds: 0);
   bool isfirstLine = false;
   bool issecondline = false;
   bool isthirdLine = false;
   bool isfourLine = false;
-  int count = 1;
+  int count = 0;
+  int playTimes = 11;
   bool isshow = false;
   final AssetsAudioPlayer _assetsAudioPlayer = AssetsAudioPlayer();
+
   List<Image> images = [
     Image.asset(
-      "assets/img/a0.png",
+      ImageList["0"],
       fit: BoxFit.fill,
     ),
     Image.asset(
-      "assets/img/a1.png",
+      ImageList["1"],
       fit: BoxFit.fill,
     ),
     Image.asset(
-      "assets/img/a2.png",
+      ImageList["2"],
       fit: BoxFit.fill,
     ),
     Image.asset(
-      "assets/img/a3.png",
+      ImageList["3"],
       fit: BoxFit.fill,
     ),
     Image.asset(
-      "assets/img/a4.png",
+      ImageList["4"],
       fit: BoxFit.fill,
     ),
     Image.asset(
-      "assets/img/a5.png",
+      ImageList["5"],
       fit: BoxFit.fill,
     ),
     Image.asset(
-      "assets/img/a6.png",
+      ImageList["6"],
       fit: BoxFit.fill,
     ),
     Image.asset(
-      "assets/img/a7.png",
+      ImageList["7"],
       fit: BoxFit.fill,
     ),
   ];
 
   addCount() {
-      count = count + 1;
+    count = count + 1;
+    if (count == playTimes + 1) {
+      _assetsAudioPlayer.stop();
+    }
   }
 
   stream() {
-    _positionSubscription = _assetsAudioPlayer.currentPosition
-        .listen((p) => setState(() => position = p),);
+    _positionSubscription = _assetsAudioPlayer.currentPosition.listen(
+          (p) => setState(() => position = p),
+    );
   }
 
   @override
   void initState() {
-    _assetsAudioPlayer.open("assets/shivamantra.mp3");
+    _assetsAudioPlayer.open(audioName);
+    _getThingsOnStartup().then((value) {
+      setState(() {
+        totalDur = _assetsAudioPlayer.current.value.duration;
+      });
+    });
     stream();
     _assetsAudioPlayer.finished.listen((finished) {
-      print(finished);
-      addCount();
-      Fluttertoast.showToast(msg: "Mantra Played $count times");
+      if (count == playTimes) {
+        _assetsAudioPlayer.stop();
+      }
+      if (count < playTimes) {
+        addCount();
+        Fluttertoast.showToast(msg: "Mantra Playing  $count time");
+      }
+//      if(count<=playTimes){
+//        addCount();
+//        Fluttertoast.showToast(msg: "Mantra Played $count times");
+//      }
     });
     super.initState();
+  }
+
+  Future _getThingsOnStartup() async {
+    await Future.delayed(Duration(seconds: 2));
   }
 
   @override
@@ -86,15 +114,15 @@ class _SmartMantraState extends State<SmartMantra> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-      children: <Widget>[
-        SizedBox(
-          height: 30,
-        ),
-        getImageContainer(),
-        isshow ? getTextContainer() : getControllerContainer(),
-        //getTextContainer()
-      ],
-    ));
+          children: <Widget>[
+            SizedBox(
+              height: 30,
+            ),
+            getImageContainer(),
+            isshow ? getTextContainer() : getControllerContainer(),
+            //getTextContainer()
+          ],
+        ));
   }
 
   getTextContainer() {
@@ -106,10 +134,10 @@ class _SmartMantraState extends State<SmartMantra> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-             getText(isfirstLine, "Aum Trayambakam Yajamahe", 0, 5),
-             getText(issecondline, "Sugandhim Pushti Vardhanam", 4, 10),
-             getText(isthirdLine, " Urva Rukamiva Bandhanan", 9, 15),
-             getText(isfourLine, "Mrtyor Muksheeya Maamritat", 14, 20),
+            getText(isfirstLine,LyricText["1"], 0, 5),
+            getText(issecondline,LyricText["2"], 4, 10),
+            getText(isthirdLine,LyricText["3"], 9, 15),
+            getText(isfourLine, LyricText["4"], 14, 20),
           ],
         ));
   }
@@ -158,8 +186,11 @@ class _SmartMantraState extends State<SmartMantra> {
               foregroundColor: Colors.black,
               child: Center(
                 child: new Text(
-                  durationToone(position).toString(),
-                  style: TextStyle(color: Colors.white, fontSize: 12),
+                  " Show  \nMantra",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),
@@ -172,10 +203,18 @@ class _SmartMantraState extends State<SmartMantra> {
             radius: 25,
             backgroundColor: Colors.black,
             foregroundColor: Colors.black,
-            child: Center(
-              child: new Text(
-                "  Share",
-                style: TextStyle(color: Colors.white, fontSize: 12),
+            child: GestureDetector(
+              onTap:  (){
+                Share.share('Check out this News App Very Useful https://play.google.com/store/apps/details?id=com.smartiapps.ungalkural&hl=en');
+              },
+              child: Center(
+                child: new Text(
+                  "Share",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
             ),
           ),
@@ -225,46 +264,64 @@ class _SmartMantraState extends State<SmartMantra> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Text(
-            "Count:$count",
+            "Count:$count/$playTimes",
             style: TextStyle(color: Colors.white),
           ),
           //Text(Provider.of<CountProvider>(context).newCount.toString(),style: TextStyle(color: Colors.white),),
           SizedBox(
-            height: 30,
+            height: 8,
           ),
           Row(
             children: <Widget>[
-              Text(
-                '      11',
-                style: TextStyle(color: Colors.white),
+              Expanded(
+                flex: 1,
+                child: RawMaterialButton(
+                  onPressed: () => setPlayTimes(11),
+                  child: Text("11"),
+                  shape: new CircleBorder(),
+                  elevation: 2.0,
+                  fillColor: Colors.red,
+                ),
               ),
-              SizedBox(
-                width: 30,
-              ),
-              Text(
-                '21',
-                style: TextStyle(color: Colors.white),
+              Expanded(
+                flex: 1,
+                child: RawMaterialButton(
+                  onPressed: () => setPlayTimes(21),
+                  child: Text("21"),
+                  shape: new CircleBorder(),
+                  elevation: 2.0,
+                  fillColor: Colors.red,
+                ),
               ),
             ],
           ),
           SizedBox(
-            height: 30,
+            height: 7,
           ),
           Row(
             children: <Widget>[
-              Text(
-                '      51',
-                style: TextStyle(color: Colors.white),
+              Expanded(
+                flex: 1,
+                child: RawMaterialButton(
+                  onPressed: () => setPlayTimes(51),
+                  child: Text("51"),
+                  shape: new CircleBorder(),
+                  elevation: 2.0,
+                  fillColor: Colors.red,
+                ),
               ),
-              SizedBox(
-                width: 30,
-              ),
-              Text(
-                '108',
-                style: TextStyle(color: Colors.white),
+              Expanded(
+                flex: 1,
+                child: RawMaterialButton(
+                  onPressed: () => setPlayTimes(108),
+                  child: Text("108"),
+                  shape: new CircleBorder(),
+                  elevation: 2.0,
+                  fillColor: Colors.red,
+                ),
               ),
             ],
           )
@@ -299,27 +356,28 @@ class _SmartMantraState extends State<SmartMantra> {
                 padding: EdgeInsets.only(top: 10),
                 child: Center(
                     child: GestureDetector(
-                  onTap: () {
-                    _assetsAudioPlayer.open("assets/shivamantra.mp3");
-                    _assetsAudioPlayer.playOrPause();
-                  },
-                  child: Icon(
-                    snapshot.data ? Icons.pause : Icons.play_arrow,
-                    size: 90,
-                    color: Colors.white,
-                  ),
-                )),
+                      onTap: () {
+                        _assetsAudioPlayer.open(audioName);
+                        //    totalDur= _assetsAudioPlayer.current.value.duration;
+                        _assetsAudioPlayer.play();
+                      },
+                      child: Icon(
+                        snapshot.data ? Icons.pause : Icons.play_arrow,
+                        size: 90,
+                        color: Colors.white,
+                      ),
+                    )),
               );
             },
           ),
           StreamBuilder(
-            stream: _assetsAudioPlayer.isLooping,
+            stream: _assetsAudioPlayer.isPlaying,
             initialData: false,
             builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
               return RaisedButton(
-                child: Text(snapshot.data ? "Looping" : "Not looping"),
+                child: Text(snapshot.data ? "Stop" : "Stopped"),
                 onPressed: () {
-                  _assetsAudioPlayer.toggleLoop();
+                  _assetsAudioPlayer.stop();
                 },
               );
             },
@@ -357,7 +415,7 @@ class _SmartMantraState extends State<SmartMantra> {
                   Duration duration = snapshot.data;
                   return Text(
                     durationToString(duration),
-                    style: TextStyle(color: Colors.white,fontSize: 25),
+                    style: TextStyle(color: Colors.white, fontSize: 25),
                   );
                 },
               ),
@@ -369,11 +427,11 @@ class _SmartMantraState extends State<SmartMantra> {
                   stream: _assetsAudioPlayer.currentPosition,
                   builder: (context, asyncSnapshot) {
                     if (asyncSnapshot.hasData) {
-                      final Duration duration =
-                          _assetsAudioPlayer.current.value.duration;
+//                      final Duration duration =
+//                          asyncSnapshot.data;
                       return Text(
-                        durationToString(duration),
-                        style: TextStyle(color: Colors.red,fontSize: 25),
+                        durationToString(totalDur),
+                        style: TextStyle(color: Colors.red, fontSize: 25),
                       );
                     }
                     return Center(child: CircularProgressIndicator());
@@ -383,30 +441,48 @@ class _SmartMantraState extends State<SmartMantra> {
           SizedBox(
             height: 10,
           ),
+          StreamBuilder(
+            stream: _assetsAudioPlayer.isLooping,
+            initialData: false,
+            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+              return RaisedButton(
+                child: Text(snapshot.data
+                    ? "Repeat Mantra is  On"
+                    : "Repeat Mantra is Off"),
+                onPressed: () {
+                  _assetsAudioPlayer.toggleLoop();
+                },
+              );
+            },
+          ),
         ],
       ),
     );
   }
-  getText(bool line,String txt,int low,int high){
-    return  StreamBuilder(
+
+  getText(bool line, String txt, int low, int high) {
+    return StreamBuilder(
       stream: _assetsAudioPlayer.currentPosition,
       initialData: const Duration(),
-      builder:
-          (BuildContext context, AsyncSnapshot<Duration> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<Duration> snapshot) {
         var duration = durationToone(snapshot.data);
-        if(duration>low&&duration<high){
-          line=true;
-        }
-        else{
-          line=false;
+        if (duration > low && duration < high) {
+          line = true;
+        } else {
+          line = false;
         }
         return Text(
-         txt,
+          txt,
           textScaleFactor: 1.5,
           style: TextStyle(color: line ? Colors.red : Colors.white),
         );
       },
     );
+  }
+
+  setPlayTimes(int val) {
+    playTimes = val;
+    print(playTimes);
   }
 }
 
@@ -417,9 +493,9 @@ String durationToString(Duration duration) {
   }
 
   String twoDigitMinutes =
-      twoDigits(duration.inMinutes.remainder(Duration.minutesPerHour));
+  twoDigits(duration.inMinutes.remainder(Duration.minutesPerHour));
   String twoDigitSeconds =
-      twoDigits(duration.inSeconds.remainder(Duration.secondsPerMinute));
+  twoDigits(duration.inSeconds.remainder(Duration.secondsPerMinute));
   return "$twoDigitMinutes:$twoDigitSeconds";
 }
 
@@ -430,16 +506,6 @@ int durationToone(Duration duration) {
   }
 
   int twoDigitSeconds =
-      twoDigits(duration.inSeconds.remainder(Duration.secondsPerMinute));
+  twoDigits(duration.inSeconds.remainder(Duration.secondsPerMinute));
   return twoDigitSeconds;
 }
-
-//Center(
-//child: Text(
-//"Aum Trayambakam Yajamahe \n Sugandhim Pushti Vardhanam \n  Urva Rukamiva Bandhanan\n Mrtyor Muksheeya Maamritat",
-//textScaleFactor: 1.5,
-//style: TextStyle(
-//color: Colors.white
-//),
-//),
-//),
