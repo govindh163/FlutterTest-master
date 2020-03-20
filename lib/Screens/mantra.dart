@@ -20,6 +20,7 @@ class _SmartMantraState extends State<SmartMantra> {
   Duration totalDur = const Duration(seconds: 0);
   bool isfirstLine = false;
   bool issecondline = false;
+
   bool isthirdLine = false;
   bool isfourLine = false;
   int count = 0;
@@ -112,6 +113,8 @@ class _SmartMantraState extends State<SmartMantra> {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    var height= MediaQuery.of(context).size.height;
     return Scaffold(
         body: Column(
           children: <Widget>[
@@ -158,8 +161,8 @@ class _SmartMantraState extends State<SmartMantra> {
               shape: BoxShape.rectangle,
               borderRadius: BorderRadius.all(Radius.circular(25.0)),
             ),
-            height: 583,
-            width: 370,
+            height: MediaQuery.of(context).size.height-210,
+            width: MediaQuery.of(context).size.width-20,
             child: CarouselSlider(
               items: images,
               height: 583,
@@ -177,7 +180,7 @@ class _SmartMantraState extends State<SmartMantra> {
           ),
         ),
         Positioned(
-          top: 533,
+          top: MediaQuery.of(context).size.height-256,
           child: GestureDetector(
             onTap: _showMantra,
             child: CircleAvatar(
@@ -197,7 +200,7 @@ class _SmartMantraState extends State<SmartMantra> {
           ),
         ),
         Positioned(
-          top: 533,
+          top: MediaQuery.of(context).size.height-256,
           left: 350,
           child: CircleAvatar(
             radius: 25,
@@ -390,7 +393,7 @@ class _SmartMantraState extends State<SmartMantra> {
   getImageSwitch() {
     return Container(
       height: 180,
-      width: 170,
+      width:  MediaQuery.of(context).size.width-210,
       color: Colors.black,
       child: Column(
         children: <Widget>[
