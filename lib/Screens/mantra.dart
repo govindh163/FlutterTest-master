@@ -1,12 +1,15 @@
 import 'dart:async';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:share/share.dart';
+
 import '../mantraconfig.dart';
 
+//import 'package:firebase_admob/firebase_admob.dart';
+const String testDevice = 'MobileId';
 class SmartMantra extends StatefulWidget {
   @override
   _SmartMantraState createState() => _SmartMantraState();
@@ -24,6 +27,39 @@ class _SmartMantraState extends State<SmartMantra> {
   int playTimes = 11;
   bool isshow = false;
   final AssetsAudioPlayer _assetsAudioPlayer = AssetsAudioPlayer();
+
+  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    testDevices: testDevice != null ? <String>[testDevice] : null,
+    nonPersonalizedAds: true,
+    keywords: <String>['Game', 'Mario'],
+  );
+  BannerAd _bannerAd;
+  BannerAd createBannerAd() {
+    return BannerAd(
+        adUnitId: BannerAd.testAdUnitId,
+        //Change BannerAd adUnitId with Admob ID
+        size: AdSize.banner,
+        targetingInfo: targetingInfo,
+        listener: (MobileAdEvent event) {
+          print("BannerAd $event");
+        });
+  }
+//  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+//    // testDevices: testDevice != null ? <String>[testDevice] : null,
+//    nonPersonalizedAds: true,
+//    keywords: <String>['Game', 'Mario'],
+//  );
+//  BannerAd _bannerAd;
+//  BannerAd createBannerAd() {
+//    return BannerAd(
+//        adUnitId:'ca-app-pub-9072893661355999/6978473482',
+//        //Change BannerAd adUnitId with Admob ID
+//        size: AdSize.banner,
+//        targetingInfo: targetingInfo,
+//        listener: (MobileAdEvent event) {
+//          print("BannerAd $event");
+//        });
+//  }
 
   List<Image> images = [
     Image.asset(
@@ -66,7 +102,6 @@ class _SmartMantraState extends State<SmartMantra> {
       _assetsAudioPlayer.stop();
     }
   }
-
   stream() {
     _positionSubscription = _assetsAudioPlayer.currentPosition.listen(
           (p) => setState(() => position = p),
@@ -76,6 +111,7 @@ class _SmartMantraState extends State<SmartMantra> {
   @override
   void initState() {
     _assetsAudioPlayer.open(audioName);
+    _assetsAudioPlayer.loop=true;
     _getThingsOnStartup().then((value) {
       setState(() {
         totalDur = _assetsAudioPlayer.current.value.duration;
@@ -88,13 +124,19 @@ class _SmartMantraState extends State<SmartMantra> {
       }
       if (count < playTimes) {
         addCount();
-        Fluttertoast.showToast(msg: "Mantra Playing  $count time");
+        // Fluttertoast.showToast(msg: "Mantra Playing  $count time");
       }
 //      if(count<=playTimes){
 //        addCount();
 //        Fluttertoast.showToast(msg: "Mantra Played $count times");
 //      }
     });
+
+    FirebaseAdMob.instance.initialize(appId: BannerAd.testAdUnitId);
+    //Change appId With Admob Id
+    _bannerAd = createBannerAd()
+      ..load()
+      ..show();
     super.initState();
   }
 
@@ -107,22 +149,42 @@ class _SmartMantraState extends State<SmartMantra> {
     _positionSubscription.cancel();
     super.dispose();
   }
-
+  Future<bool> _exitApp(BuildContext context) {
+    return showDialog(
+      context: context,
+      child: new AlertDialog(
+        title: new Text('Do you want to exit this application?'),
+        content: new Text('We hate to see you leave...'),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: new Text('No',style: TextStyle(color: Colors.black),),
+          ),
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: new Text('Yes',style: TextStyle(color: Colors.black),),
+          ),
+        ],
+      ),
+    ) ??
+        false;
+  }
   @override
   Widget build(BuildContext context) {
-//    var width = MediaQuery.of(context).size.width;
-//    var height= MediaQuery.of(context).size.height;
-    return Scaffold(
-        body: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 30,
-            ),
-            getImageContainer(),
-            isshow ? getTextContainer() : getControllerContainer(),
-            //getTextContainer()
-          ],
-        ));
+    return WillPopScope(
+      onWillPop:  () => _exitApp(context),
+      child: Scaffold(
+          body: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 30,
+              ),
+              getImageContainer(),
+              isshow ? getTextContainer() : getControllerContainer(),
+              //getTextContainer()
+            ],
+          )),
+    );
   }
 
   getTextContainer() {
@@ -345,7 +407,7 @@ class _SmartMantraState extends State<SmartMantra> {
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
           SizedBox(
-            height: 3,
+            height: 8,
           ),
           StreamBuilder(
             stream: _assetsAudioPlayer.isPlaying,
@@ -357,13 +419,13 @@ class _SmartMantraState extends State<SmartMantra> {
                 child: Center(
                     child: GestureDetector(
                       onTap: () {
-                        _assetsAudioPlayer.open(audioName);
+                        // _assetsAudioPlayer.open(audioName);
                         //    totalDur= _assetsAudioPlayer.current.value.duration;
-                        _assetsAudioPlayer.play();
+                        _assetsAudioPlayer.playOrPause();
                       },
                       child: Icon(
                         snapshot.data ? Icons.pause : Icons.play_arrow,
-                        size: 90,
+                        size: 60,
                         color: Colors.white,
                       ),
                     )),
@@ -374,10 +436,15 @@ class _SmartMantraState extends State<SmartMantra> {
             stream: _assetsAudioPlayer.isPlaying,
             initialData: false,
             builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-              return RaisedButton(
-                child: Text(snapshot.data ? "Stop" : "Stopped"),
+              return IconButton(
+                icon:  Icon(Icons.stop),
+                iconSize: 60,
+                color: Colors.white,
                 onPressed: () {
-                  _assetsAudioPlayer.stop();
+                  _assetsAudioPlayer.pause();
+                  _assetsAudioPlayer.seek(Duration(seconds: 0));
+                  count=1;
+                  setState(() {});
                 },
               );
             },
@@ -441,20 +508,6 @@ class _SmartMantraState extends State<SmartMantra> {
           SizedBox(
             height: 10,
           ),
-          StreamBuilder(
-            stream: _assetsAudioPlayer.isLooping,
-            initialData: false,
-            builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-              return RaisedButton(
-                child: Text(snapshot.data
-                    ? "Repeat Mantra is  On"
-                    : "Repeat Mantra is Off"),
-                onPressed: () {
-                  _assetsAudioPlayer.toggleLoop();
-                },
-              );
-            },
-          ),
         ],
       ),
     );
@@ -484,6 +537,7 @@ class _SmartMantraState extends State<SmartMantra> {
     playTimes = val;
     setState(() {});
     print(playTimes);
+    _assetsAudioPlayer.loop=true;
   }
 }
 
