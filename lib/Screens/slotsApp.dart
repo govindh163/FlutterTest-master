@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:sweetsheet/sweetsheet.dart';
 
 class SlotsApp extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class SlotsApp extends StatefulWidget {
 }
 
 class _SlotsAppState extends State<SlotsApp> {
+  final SweetSheet _sweetSheet = SweetSheet();
  int point=1000;
  bool isWin=true;
   List image=["assets/apple.png","assets/icons8-cherry.png","assets/icons8-star-512.png"];
@@ -59,10 +61,33 @@ class _SlotsAppState extends State<SlotsApp> {
              ],
            ),
          ),
-         SizedBox(height: 90,),
-         _getButton(),
+         SizedBox(height: 50,),
+         _getButton(_randomise,"Spin"),
+         SizedBox(height: 10,),
+         _getButton(getSheet,"Sheet"),
        ],
       )
+    );
+  }
+  getSheet(){
+    _sweetSheet.show(
+      context: context,
+      title: "Delete this post?",
+      description: "This action will permanently delete this post.",
+      type: SweetSheetType.WARNING,
+      icon: Icons.delete,
+      positive: SweetSheetAction(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        title: 'CANCEL',
+      ),
+      negative: SweetSheetAction(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        title: 'DELETE',
+      ),
     );
   }
   _getImageContainer(fileImage){
@@ -103,7 +128,7 @@ class _SlotsAppState extends State<SlotsApp> {
        );
      }
   }
-  _getButton(){
+  _getButton(fun,String text ){
     return SizedBox(
       width: 150,
       height: 70,
@@ -111,8 +136,8 @@ class _SlotsAppState extends State<SlotsApp> {
         color: Colors.blueGrey,
         shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
         textColor: Colors.white,
-        onPressed: _randomise,
-        child: Text("Spin",style: TextStyle(
+        onPressed: fun,
+        child: Text(text,style: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold
         ),),
