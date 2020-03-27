@@ -88,6 +88,8 @@ class _MyAppState extends State<MyApp> {
               home: Splash(),
               routes:<String, WidgetBuilder> {
                 '/land': (context) => LandingPage(),
+                '/crop': (context) => CropImage(),
+              '/slide': (context) => Sliderdev(),
                 '/drawer': (context) => CustomGuitarDrawer(child: LandingPage(),),
                 '/auth':(context) => MyHomePage(),
                 '/json':(context) => MessageList(),
