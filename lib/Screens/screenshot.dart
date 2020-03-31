@@ -31,7 +31,7 @@ class _ScreenShotState extends State<ScreenShot> {
   Future getImage() async {
     var image;
     try {
-      image = await ImagePicker.pickImage(source: ImageSource.gallery);
+      image = await ImagePicker.pickImage(source: ImageSource.camera);
     } catch (platformException) {
       print("not allowing " + platformException);
     }

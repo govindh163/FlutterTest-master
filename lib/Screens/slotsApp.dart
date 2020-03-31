@@ -2,11 +2,12 @@
 import 'dart:math';
 import 'dart:async';
 import 'dart:io';
-import 'package:image_cropper/image_cropper.dart';
+//import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:open_file/open_file.dart';
 import 'package:sweetsheet/sweetsheet.dart';
 
 class SlotsApp extends StatefulWidget {
@@ -21,9 +22,22 @@ class _SlotsAppState extends State<SlotsApp> {
   List image=["assets/apple.png","assets/icons8-cherry.png","assets/icons8-star-512.png"];
   List num=[0,1,2];
   final _random = new Random();
+  String _openResult = 'Unknown';
+
+  Future<void> openFile() async {
+
+    final filePath = '/storage/emulated/0/Download/images.jpg';
+    final result = await OpenFile.open('/storage/emulated/0/Download/images.jpg');
+
+    setState(() {
+      _openResult = "type=${result.type}  message=${result.message}";
+    });
+
+  }
  // var element = image[_random.nextInt(image.length)];
   @override
   Widget build(BuildContext context) {
+    print(_openResult);
     return Scaffold(
       appBar: AppBar(title: Text("Slots App"),),
       backgroundColor: Color(0XFFDBDBE8),
@@ -89,9 +103,7 @@ class _SlotsAppState extends State<SlotsApp> {
         title: 'CANCEL',
       ),
       negative: SweetSheetAction(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
+        onPressed: openFile,
         title: 'DELETE',
       ),
     );
@@ -187,9 +199,9 @@ class _CropImageState extends State<CropImage> {
         onPressed: () {
           if (state == AppState.free)
             _pickImage();
-          else if (state == AppState.picked)
-            _cropImage();
-          else if (state == AppState.cropped) _clearImage();
+//          else if (state == AppState.picked)
+//            _cropImage();
+//          else if (state == AppState.cropped) _clearImage();
         },
         child: _buildButtonIcon(),
       ),
@@ -216,44 +228,44 @@ class _CropImageState extends State<CropImage> {
     }
   }
 
-  Future<Null> _cropImage() async {
-    File croppedFile = await ImageCropper.cropImage(
-        sourcePath: imageFile.path,
-        aspectRatioPresets: Platform.isAndroid
-            ? [
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9
-        ]
-            : [
-          CropAspectRatioPreset.original,
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio5x3,
-          CropAspectRatioPreset.ratio5x4,
-          CropAspectRatioPreset.ratio7x5,
-          CropAspectRatioPreset.ratio16x9
-        ],
-        androidUiSettings: AndroidUiSettings(
-            toolbarTitle: 'Cropper',
-            toolbarColor: Colors.deepOrange,
-            toolbarWidgetColor: Colors.white,
-            initAspectRatio: CropAspectRatioPreset.original,
-            lockAspectRatio: false),
-        iosUiSettings: IOSUiSettings(
-          title: 'Cropper',
-        )
-    );
-    if (croppedFile != null) {
-      imageFile = croppedFile;
-      setState(() {
-        state = AppState.cropped;
-      });
-    }
-  }
+//  Future<Null> _cropImage() async {
+//    File croppedFile = await ImageCropper.cropImage(
+//        sourcePath: imageFile.path,
+//        aspectRatioPresets: Platform.isAndroid
+//            ? [
+//          CropAspectRatioPreset.square,
+//          CropAspectRatioPreset.ratio3x2,
+//          CropAspectRatioPreset.original,
+//          CropAspectRatioPreset.ratio4x3,
+//          CropAspectRatioPreset.ratio16x9
+//        ]
+//            : [
+//          CropAspectRatioPreset.original,
+//          CropAspectRatioPreset.square,
+//          CropAspectRatioPreset.ratio3x2,
+//          CropAspectRatioPreset.ratio4x3,
+//          CropAspectRatioPreset.ratio5x3,
+//          CropAspectRatioPreset.ratio5x4,
+//          CropAspectRatioPreset.ratio7x5,
+//          CropAspectRatioPreset.ratio16x9
+//        ],
+//        androidUiSettings: AndroidUiSettings(
+//            toolbarTitle: 'Cropper',
+//            toolbarColor: Colors.deepOrange,
+//            toolbarWidgetColor: Colors.white,
+//            initAspectRatio: CropAspectRatioPreset.original,
+//            lockAspectRatio: false),
+//        iosUiSettings: IOSUiSettings(
+//          title: 'Cropper',
+//        )
+//    );
+//    if (croppedFile != null) {
+//      imageFile = croppedFile;
+//      setState(() {
+//        state = AppState.cropped;
+//      });
+//    }
+//  }
 
   void _clearImage() {
     imageFile = null;
