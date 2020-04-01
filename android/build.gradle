@@ -30,6 +30,7 @@ subprojects {
                     !details.requested.name.contains('androidx')) {
                 details.useVersion "1.0.1"
             }
+
         }
     }
 }

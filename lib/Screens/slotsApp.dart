@@ -27,7 +27,7 @@ class _SlotsAppState extends State<SlotsApp> {
   Future<void> openFile() async {
 
     final filePath = '/storage/emulated/0/Download/images.jpg';
-    final result = await OpenFile.open('/storage/emulated/0/Download/images.jpg');
+    final result = await OpenFile.open(filePath);
 
     setState(() {
       _openResult = "type=${result.type}  message=${result.message}";
@@ -104,7 +104,7 @@ class _SlotsAppState extends State<SlotsApp> {
       ),
       negative: SweetSheetAction(
         onPressed: openFile,
-        title: 'DELETE',
+        title: 'open file',
       ),
     );
   }
