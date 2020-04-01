@@ -89,6 +89,7 @@ class _MyAppState extends State<MyApp> {
               routes:<String, WidgetBuilder> {
                 '/land': (context) => LandingPage(),
                 '/crop': (context) => CropImage(),
+                '/navi': (context) => Navibar(),
               '/slide': (context) => Sliderdev(),
                 '/drawer': (context) => CustomGuitarDrawer(child: LandingPage(),),
                 '/auth':(context) => MyHomePage(),

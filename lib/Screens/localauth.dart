@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:local_auth/local_auth.dart';
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -77,10 +77,18 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text( 'AUth'),
       ),
+
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text("Bottom NaviBar"),
+            RaisedButton(
+              onPressed:() => Navigator.pushNamed(context, "/navi"),
+              child: Text("Check Biometric"),
+              color: Colors.red,
+              colorBrightness: Brightness.light,
+            ),
             Text("Can we check Biometric : $_canCheckBiometric"),
             RaisedButton(
               onPressed: _checkBiometric,
@@ -104,6 +112,86 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+class CustomIcons {
+  CustomIcons._();
+
+  static const _kFontFamily = 'IconFont';
+
+  static const IconData calendar =
+  const IconData(0xe800, fontFamily: _kFontFamily);
+  static const IconData podcasts =
+  const IconData(0xe801, fontFamily: _kFontFamily);
+  static const IconData home = const IconData(0xe802, fontFamily: _kFontFamily);
+  static const IconData search =
+  const IconData(0xe803, fontFamily: _kFontFamily);
+  static const IconData tickets =
+  const IconData(0xe804, fontFamily: _kFontFamily);
+}
+class Navibar extends StatefulWidget {
+  @override
+  _NavibarState createState() => _NavibarState();
+}
+
+class _NavibarState extends State<Navibar> {
+  int _selectedItemPosition = 2;
+  SnakeBarStyle snakeBarStyle = SnakeBarStyle.floating;
+  SnakeShape snakeShape = SnakeShape.circle;
+  ShapeBorder bottomBarShape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(25)));
+  double elevation = 0;
+  bool showSelectedLabels = false;
+  bool showUnselectedLabels = false;
+
+  Color backgroundColor = Colors.white;
+  Color selectionColor = Colors.black;
+
+  Gradient backgroundGradient =
+  const LinearGradient(colors: [Colors.black, Colors.lightBlue]);
+  Gradient selectionGradient =
+  const LinearGradient(colors: [Colors.white, Colors.amber]);
+
+  EdgeInsets padding = EdgeInsets.all(12);
+  Color containerColor = Color(0xFFFDE1D7);
+  TextStyle labelTextStyle = TextStyle(
+      fontSize: 11, fontFamily: 'Ubuntu', fontWeight: FontWeight.bold);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('SnakeBottomBar Example')),
+      bottomNavigationBar: SnakeNavigationBar(
+        style: snakeBarStyle,
+        snakeShape: snakeShape,
+        snakeColor: selectionColor,
+        backgroundColor: backgroundColor,
+        showUnselectedLabels: showUnselectedLabels,
+        showSelectedLabels: showSelectedLabels,
+        shape: bottomBarShape,
+        padding: padding,
+        currentIndex: _selectedItemPosition,
+        onPositionChanged: (index) =>
+            setState(() => _selectedItemPosition = index),
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(CustomIcons.tickets),
+              title: Text('tickets', style: labelTextStyle)),
+          BottomNavigationBarItem(
+              icon: Icon(CustomIcons.calendar),
+              title: Text('calendar', style: labelTextStyle)),
+          BottomNavigationBarItem(
+              icon: Icon(CustomIcons.home),
+              title: Text('home', style: labelTextStyle)),
+          BottomNavigationBarItem(
+              icon: Icon(CustomIcons.podcasts),
+              title: Text('microphone', style: labelTextStyle)),
+          BottomNavigationBarItem(
+              icon: Icon(CustomIcons.search),
+              title: Text('search', style: labelTextStyle))
+        ],
       ),
     );
   }
